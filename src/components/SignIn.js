@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from './firebase';
 import { compose } from 'recompose';
+import NavBar from './NavBar';
 
 class SignInBase extends Component {
   constructor(props) {
@@ -69,8 +70,9 @@ class SignInBase extends Component {
       <>
         {user ? (
           <>
-            <button onClick={this.signOut}>Sign Out</button>
-            {children}
+            <NavBar signOut={this.signOut} />
+            {/* <button onClick={this.signOut}>Sign Out</button>
+            {children} */}
           </>
         ) : (
           <div id="signin">

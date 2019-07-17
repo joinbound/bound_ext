@@ -36,50 +36,51 @@ class Calendar extends Component {
 
   render() {
     const { calendarData } = this.state;
-
+    console.log('hu', this.props);
     return (
       <div id="calBody">
-        <div className="header">
-          <h1 id="upcomingEvents"> Upcoming Events </h1>
-          {calendarData.map(event => {
-            return (
-              <div id="eventInfoAndCheckInButton">
-                <div id="eventDetails">
-                  <img
-                    id="eventTitleIcon"
-                    src="/images/eventTitleIcon.png"
-                    alt="Event Title"
-                  />
-                  {event.eventTitle}
-                  <br />
-                  <img
-                    id="eventTimeIcon"
-                    src="/images/eventTimeIcon.png"
-                    alt="Event Time"
-                  />
-                  {event.time} am Today
-                  <br />
-                  <img
-                    id="eventBerryIcon"
-                    src="/images/redBerryIcon.png"
-                    alt="Event Time"
-                  />
-                  {event.numberOfBerries} Berries{' '}
-                  <img
-                    id="eventMemberIcon"
-                    src="/images/eventMemberIcon.png"
-                    alt="Event Time"
-                  />
-                  {event.numberOfPeople} People{' '}
-                </div>
-
-                <div className="checkInButton">
-                  <button id="checkIn"> Check in 15 minutes before</button>
-                </div>
+        <h1 id="upcomingEvents"> Upcoming Events </h1>
+        {calendarData.map(event => {
+          return (
+            <div id="eventInfoAndCheckInButton">
+              <div id="eventDetails">
+                <img
+                  id="eventTitleIcon"
+                  src="/images/eventTitleIcon.png"
+                  alt="Event Title"
+                />
+                {event.eventTitle}
+                <br />
+                <img
+                  id="eventTimeIcon"
+                  src="/images/eventTimeIcon.png"
+                  alt="Event Time"
+                />
+                {event.time}
+                <br />
+                <img
+                  id="eventBerryIcon"
+                  src="/images/redBerryIcon.png"
+                  alt="Event Time"
+                />
+                {event.numberOfBerries} Berries{' '}
+                <img
+                  id="eventMemberIcon"
+                  src="/images/eventMemberIcon.png"
+                  alt="Event Time"
+                />
+                {event.numberOfPeople} People{' '}
               </div>
-            );
-          })}
-        </div>
+
+              <div className="checkInButton">
+                <button id="checkIn"> Check in 15 minutes before</button>
+              </div>
+            </div>
+          );
+        })}
+        <h1 id="signOut" onClick={this.props.signOut}>
+          Log Out
+        </h1>
       </div>
     );
   }

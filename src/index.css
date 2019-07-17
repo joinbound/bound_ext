@@ -23,6 +23,7 @@ body {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: auto;
 }
 
 code {
@@ -55,6 +56,14 @@ code {
   white-space: nowrap;
   margin-top: 10%;
 }
+
+#signOut {
+  font-size: 1em;
+  float: right;
+  padding-right: 10%;
+  color: #ff5252;
+}
+
 span.icon {
   background: url('/images/googleG.png') transparent 5px 50% no-repeat;
   background-size: 100%;
@@ -74,7 +83,6 @@ span.buttonText {
 }
 
 #navigation {
-  border: 2px solid purple;
   width: 360px;
   height: 600px;
 }
@@ -120,20 +128,17 @@ span.buttonText {
   padding-right: 18%;
   font-size: 0.8em;
 }
+
 #navBottom {
   position: fixed;
-  width: 360px;
   display: flex;
   justify-content: space-evenly;
-  padding-top: 7px;
+  padding: 7px;
   box-shadow: 0px -2px 6px -6px black;
-
-  /* test this on chrome extension*/
-  /* position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: white; */
+  background-color: white;
 }
 
 #storeBody {

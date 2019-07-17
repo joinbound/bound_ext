@@ -32,7 +32,7 @@ class NavBar extends Component {
     if (this.state.storeView === true) {
       screen = <Store />;
     } else if (this.state.storeView === false) {
-      screen = <Calendar />;
+      screen = <Calendar signOut={this.props.signOut} />;
     }
 
     return (
