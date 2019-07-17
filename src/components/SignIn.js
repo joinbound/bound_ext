@@ -32,7 +32,6 @@ class SignInBase extends Component {
 
   // Handle Login Status: update credentials in localStorage and state
   handleLogin = userCredential => {
-    console.log('logging in login', userCredential);
     const { credential, user } = userCredential;
     localStorage.setItem('credentials', JSON.stringify(credential.toJSON()));
     this.setState({ error: null, user: user });
