@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from './firebase';
 import { compose } from 'recompose';
+import NavBar from './NavBar';
 
 class SignInBase extends Component {
   constructor(props) {
@@ -64,13 +65,11 @@ class SignInBase extends Component {
 
   render() {
     const { user } = this.state;
-    const { children } = this.props;
     return (
       <>
         {user ? (
           <>
-            <button onClick={this.signOut}>Sign Out</button>
-            {children}
+            <NavBar signOut={this.signOut} />
           </>
         ) : (
           <div id="signin">
