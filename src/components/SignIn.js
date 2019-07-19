@@ -65,14 +65,11 @@ class SignInBase extends Component {
 
   render() {
     const { user } = this.state;
-    const { children } = this.props;
     return (
       <>
         {user ? (
           <>
             <NavBar signOut={this.signOut} />
-            {/* <button onClick={this.signOut}>Sign Out</button>
-            {children} */}
           </>
         ) : (
           <div id="signin">

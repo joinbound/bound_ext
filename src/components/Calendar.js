@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class Calendar extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       calendarData: [
         {
@@ -36,7 +35,6 @@ class Calendar extends Component {
 
   render() {
     const { calendarData } = this.state;
-    console.log('hu', this.props);
     return (
       <div id="calBody">
         <h1 id="upcomingEvents"> Upcoming Events </h1>
