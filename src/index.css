@@ -8,7 +8,7 @@
   font-family: 'Roboto Medium', sans-serif;
   src: url(./fonts/Roboto-Medium.ttf) format('truetype');
   src: url(./fonts/Roboto-Regular.ttf) format('truetype');
-  font-weight: normal;
+  /* font-weight: normal; */
 }
 
 @font-face {
@@ -151,6 +151,31 @@ span.buttonText {
   margin: 10px;
   overflow: scroll;
 }
+
+#featured {
+  position: relative;
+}
+#featuredInfo {
+  position: relative;
+  font-size: 14px;
+  font-family: 'Roboto Medium', sans-serif;
+  font-weight: bold;
+  color: white;
+  opacity: 0.75;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000);
+  position: absolute;
+  bottom: 2px;
+  width: 100%;
+  border-radius: 11px;
+}
+.rewardsTxt {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+#featuredName {
+  font-family: 'gotham';
+  font-size: 18px;
+}
 #rewards {
   display: flex;
   flex-wrap: wrap;
@@ -163,6 +188,23 @@ span.buttonText {
   border-radius: 11px;
   border: 2px solid #f4f4f7;
   background-color: white;
+  position: relative;
+}
+#rewardsInfo {
+  position: relative;
+  font-size: 14px;
+  font-family: 'Roboto Medium', sans-serif;
+  font-weight: bold;
+  color: white;
+  opacity: 0.75;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000);
+  position: absolute;
+  bottom: 2px;
+  width: 100%;
+  border-radius: 11px;
+}
+#rewardsInfo h1 {
+  font-size: 14px;
 }
 #featured img,
 #rewards img {
