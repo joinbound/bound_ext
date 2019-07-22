@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
+import { withFirebase } from './firebase';
+import { compose } from 'recompose';
 import { ShippingForm } from '.';
+import { connect } from 'react-redux';
+import { fetchMarketplace } from '../store/marketplace';
 
-class Store extends Component {
-  constructor() {
-    super();
+class StoreBase extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       data: [
         {
@@ -43,7 +48,12 @@ class Store extends Component {
     }));
   }
 
+  componentDidMount() {
+    this.props.fetchMarketplace();
+  }
+
   render() {
+    console.log('props in store', this.props);
     let featured = null;
     let rewards = [];
     this.state.data.sort((a, b) =>
@@ -99,4 +109,20 @@ class Store extends Component {
     );
   }
 }
-export default Store;
+
+const Store = compose(
+  withRouter,
+  withFirebase
+)(StoreBase);
+
+const mapStateToProps = state => ({
+  store: state.marketplace.store,
+});
+const mapDispatchToProps = dispatch => ({
+  fetchMarketplace: () => dispatch(fetchMarketplace()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Store);

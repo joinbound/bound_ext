@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Firebase from './components/firebase/firebase';
 import { FirebaseContext } from './components/firebase';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <FirebaseContext.Provider value={new Firebase()}>
