@@ -140,6 +140,7 @@ span.buttonText {
   width: 100%;
   background-color: white;
 }
+
 /*Store CSS*/
 #store {
   border: 2px solid #f4f4f7;
@@ -164,9 +165,10 @@ span.buttonText {
   opacity: 0.75;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000);
   position: absolute;
-  bottom: 2px;
+  bottom: 5px;
   width: 100%;
-  border-radius: 11px;
+  border-bottom-left-radius: 11px;
+  border-bottom-right-radius: 11px;
 }
 .rewardsTxt {
   margin-left: 10px;
@@ -201,7 +203,8 @@ span.buttonText {
   position: absolute;
   bottom: 2px;
   width: 100%;
-  border-radius: 11px;
+  border-bottom-left-radius: 11px;
+  border-bottom-right-radius: 11px;
 }
 #rewardsInfo h1 {
   font-size: 14px;
@@ -218,7 +221,6 @@ span.buttonText {
   height: 460px;
   overflow: scroll;
   padding-left: 8%;
-  background-color: white;
 }
 
 /* styling for h1*/
@@ -300,4 +302,20 @@ span.buttonText {
   padding-right: 2px;
   height: 20%;
   width: 10%;
+}
+
+#modal {
+  /* border: 2px solid pink; */
+  position: fixed;
+  top: 0;
+  width: 360px;
+  background-color: white;
+  border-radius: 11px;
+  box-shadow: 2px 13px 25px -2px rgba(0, 0, 0, 0.75);
+}
+#test {
+  border: 2px solid red;
+  display: inline-block;
+  width: 100%;
+  height: 10px;
 }

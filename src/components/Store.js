@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { ShippingForm } from '.';
 
 class Store extends Component {
   constructor() {
@@ -30,8 +32,17 @@ class Store extends Component {
           price: 5,
         },
       ],
+      modal: false,
     };
+    this.toggleForm = this.toggleForm.bind(this);
   }
+
+  toggleForm() {
+    this.setState(prevState => ({
+      modal: !prevState.modal,
+    }));
+  }
+
   render() {
     let featured = null;
     let rewards = [];
@@ -41,34 +52,50 @@ class Store extends Component {
     featured = this.state.data[0];
     rewards = this.state.data.slice(1);
     return (
-      <div id="store">
-        <div id="storeBody">
-          <div id="featured">
-            <img id="featuredImg" src={featured.picture} alt="" />
-            <div id="featuredInfo">
-              <div className="rewardsTxt">
-                <h1 id="featuredName">{featured.name}</h1>
-                <img src="/images/redBerryIcon.png" alt="" />
-                {featured.price}
-              </div>
-            </div>
-          </div>
-          <div id="rewards">
-            {rewards.map(reward => (
-              <div id="rewardCard">
-                <img src={reward.picture} alt="" />
-                <div id="rewardsInfo">
-                  <div className="rewardsTxt">
-                    <h1>{reward.name}</h1>
-                    <img src="/images/redBerryIcon.png" alt="" />
-                    {reward.price}
-                  </div>
+      <>
+        <Modal id="modal" isOpen={this.state.modal}>
+          <ModalHeader toggle={this.toggleForm} id="test">
+            Shipping
+          </ModalHeader>
+          <ModalBody>
+            <ShippingForm />
+          </ModalBody>
+        </Modal>
+
+        <div id="store">
+          <div id="storeBody">
+            <div id="featured">
+              <img
+                id="featuredImg"
+                src={featured.picture}
+                onClick={this.toggleForm}
+                alt=""
+              />
+              <div id="featuredInfo">
+                <div className="rewardsTxt">
+                  <h1 id="featuredName">{featured.name}</h1>
+                  <img src="/images/redBerryIcon.png" alt="" />
+                  {featured.price}
                 </div>
               </div>
-            ))}
+            </div>
+            <div id="rewards">
+              {rewards.map(reward => (
+                <div id="rewardCard">
+                  <img src={reward.picture} alt="" />
+                  <div id="rewardsInfo">
+                    <div className="rewardsTxt">
+                      <h1>{reward.name}</h1>
+                      <img src="/images/redBerryIcon.png" alt="" />
+                      {reward.price}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
