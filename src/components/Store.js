@@ -73,9 +73,12 @@ class Store extends Component {
               />
               <div id="featuredInfo">
                 <div className="rewardsTxt">
-                  <h1 id="featuredName">{featured.name}</h1>
-                  <img src="/images/redBerryIcon.png" alt="" />
+                  <h1 id="featuredName">
+                  {featured.name}
+                  <br></br>
+                  <img id="berryIcon" src="/images/redBerryIcon.png" alt="" />
                   {featured.price}
+                  </h1>
                 </div>
               </div>
             </div>
@@ -85,9 +88,12 @@ class Store extends Component {
                   <img src={reward.picture} alt="" />
                   <div id="rewardsInfo">
                     <div className="rewardsTxt">
-                      <h1>{reward.name}</h1>
-                      <img src="/images/redBerryIcon.png" alt="" />
-                      {reward.price}
+                      <h1 id="itemName">
+                      {reward.name}
+                      <br></br>
+                      <img id="berryIcon" src="/images/redBerryIcon.png" alt="" />
+                      <h1 className="berryNum">{reward.price}</h1>
+                      </h1>
                     </div>
                   </div>
                 </div>
