@@ -4,6 +4,7 @@ import { withFirebase } from './firebase';
 import { compose } from 'recompose';
 import NavBar from './NavBar';
 
+
 class SignInBase extends Component {
   constructor(props) {
     super(props);

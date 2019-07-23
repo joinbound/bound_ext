@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import { ShippingForm } from '.';
 
 class Store extends Component {
@@ -33,14 +33,33 @@ class Store extends Component {
         },
       ],
       modal: false,
+
+      nestedModal: false,
+      closeAll: false
     };
     this.toggleForm = this.toggleForm.bind(this);
+    this.toggleNested = this.toggleNested.bind(this);
+    this.toggleAll = this.toggleAll.bind(this);
   }
 
   toggleForm() {
     this.setState(prevState => ({
       modal: !prevState.modal,
     }));
+  }
+
+  toggleNested() {
+    this.setState({
+      nestedModal: !this.state.nestedModal,
+      closeAll: false
+    });
+  }
+
+  toggleAll() {
+    this.setState({
+      nestedModal: !this.state.nestedModal,
+      closeAll: true
+    });
   }
 
   render() {
@@ -53,13 +72,14 @@ class Store extends Component {
     rewards = this.state.data.slice(1);
     return (
       <>
+
         <Modal id="modal" isOpen={this.state.modal}>
-          <ModalHeader toggle={this.toggleForm} id="test">
-            Shipping
-          </ModalHeader>
-          <ModalBody>
-            <ShippingForm />
-          </ModalBody>
+          <ModalHeader toggle={this.toggleForm} id="modalHeader">
+            <div  class="text-align: justify">Purchase Confirmation  </div>
+          </ModalHeader> 
+            <ModalBody>
+              <ShippingForm />
+            </ModalBody>
         </Modal>
 
         <div id="store">
