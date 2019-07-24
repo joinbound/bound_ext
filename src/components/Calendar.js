@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import scriptLoader from 'react-async-script-loader'
 
 class Calendar extends Component {
   constructor(props) {
@@ -32,6 +33,59 @@ class Calendar extends Component {
       ],
     };
   }
+
+  // loadYoutubeApi() {
+  //   const script = document.createElement("script");
+  //   script.src = "https://apis.google.com/js/client.js";
+
+  //   console.log(this.props.userCredential);
+
+  //   script.onload = () => {
+  //     window.gapi.load('client:auth2', () => {
+  //       window.gapi.client.setApiKey(process.env.REACT_APP_API_KEY);
+  //       window.gapi.client.load('calendar', 'v3');
+  //       window.gapi.auth.authorize({
+  //         client_id: '121179289007-bbd4nrrm6g5sutpao31auapgp482etdo.apps.googleusercontent.com',
+  //         scope: "https://www.googleapis.com/auth/calendar.events.readonly",
+  //         immediate: true
+  //       }, (result) => {
+  //         console.log(result);
+  //           window.gapi.client.load('calendar', 'v3');
+  //           window.gapi.client.calendar.events.list({
+  //           calendarId: 'primary',
+  //           maxResult: 10
+  //         }).then(function (response) {
+  //           var events = response.result.items;
+  //           console.log(events);
+  //          });
+  //       });
+  //       // window.gapi.client.init({
+  //       //   apiKey: process.env.REACT_APP_API_KEY,
+  //       //   discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
+  //       //   clientId: '121179289007-bbd4nrrm6g5sutpao31auapgp482etdo.apps.googleusercontent.com',
+  //       //   scope: "https://www.googleapis.com/auth/calendar.readonly",
+  //       // }).then(function () {
+  //       //   window.gapi.client.load('calendar', 'v3');
+  //       //   window.gapi.client.calendar.events.list({
+  //       //     calendarId: 'primary',
+  //       //     maxResult: 10
+  //       //   }).then(function (response) {
+  //       //     var events = response.result.items;
+  //       //     console.log(events);
+  //         // });
+  //       // window.gapi.client.setApiKey("");
+  //       // window.gapi.client.load('youtube', 'v3', () => {
+  //       //   this.setState({ gapiReady: true });
+  //       // });
+  //     });
+  //   };
+
+  //   document.body.appendChild(script);
+  // }
+
+  // componentDidMount() {
+  //   this.loadYoutubeApi();
+  // }
 
   render() {
     const { calendarData } = this.state;
@@ -84,4 +138,7 @@ class Calendar extends Component {
   }
 }
 
-export default Calendar;
+export default scriptLoader(
+  'https://apis.google.com/js/api.js'
+)(Calendar)
+

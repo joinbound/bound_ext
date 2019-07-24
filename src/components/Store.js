@@ -32,6 +32,14 @@ class Store extends Component {
       ],
     };
   }
+
+  componentDidMount() {
+    const { firebase } = this.props;
+    console.log(firebase.exportToDB().collection("marketplace").get().then((querySnapshot) => {
+      const data = querySnapshot.docs.map(doc => doc.data());
+      console.log(data);
+    }));
+  }
   render() {
     let featured = null;
     let rewards = [];
@@ -40,6 +48,7 @@ class Store extends Component {
     );
     featured = this.state.data[0];
     rewards = this.state.data.slice(1);
+    
     return (
       <div id="store">
         <div id="storeBody">
