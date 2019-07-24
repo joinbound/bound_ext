@@ -6,33 +6,11 @@ class Store extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        {
-          name: 'Water Bottle',
-          picture:
-            'https://images-na.ssl-images-amazon.com/images/I/61dtC2URIPL._SX425_.jpg',
-          price: 10,
-        },
-        {
-          name: 'Adidas Stan Smith',
-          picture:
-            'https://shop.r10s.jp/auc-rodeo/cabinet/adidas/m20325-11.jpg',
-          price: 20,
-        },
-        {
-          name: 'School Supplies',
-          picture:
-            'https://www.mesaunitedway.org/helenshope/wp-content/uploads/2017/08/School-Supplies.jpg',
-          price: 10,
-        },
-        {
-          name: 'Coffee',
-          picture:
-            'https://milklife.com/sites/default/files/styles/recipe_zoomable_images_large/public/main_image/Recipe/2013/09/18/Protein-Packed%20Latte_square.jpg?itok=vwVtOEyA',
-          price: 5,
-        },
-      ],
+
       modal: false,
+      store: [],
+      featured: {},
+      rewards: [],
 
     };
     this.toggleForm = this.toggleForm.bind(this);
@@ -44,17 +22,31 @@ class Store extends Component {
     }));
   }
 
+  componentDidMount() {
+    const { firebase } = this.props;
 
+    firebase
+      .exportToDB()
+      .collection('marketplace')
+      .get()
+      .then(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => doc.data());
+        this.setState({
+          store: data.sort((a, b) =>
+            a.berries < b.berries ? 1 : b.berries < a.berries ? -1 : 0
+          ),
+        });
+        this.setState({ featured: this.state.store[0] });
+        this.setState({ rewards: this.state.store.slice(1) });
+      });
+  }
 
   render() {
-    let featured = null;
-    let rewards = [];
-    this.state.data.sort((a, b) =>
-      a.price < b.price ? 1 : b.price < a.price ? -1 : 0
-    );
-    featured = this.state.data[0];
-    rewards = this.state.data.slice(1);
+    let { featured, rewards } = this.state;
+    if (!featured) featured = {};
+
     return (
+
       <>
 
         <Modal id="modal" isOpen={this.state.modal} toggle={this.toggleForm} className={this.props.className}>
@@ -71,7 +63,7 @@ class Store extends Component {
             <div id="featured">
               <img
                 id="featuredImg"
-                src={featured.picture}
+                src={featured.image}
                 onClick={this.toggleForm}
                 alt=""
               />
@@ -81,7 +73,7 @@ class Store extends Component {
                   {featured.name}
                   <br></br>
                   <img id="berryIcon" src="/images/redBerryIcon.png" alt="" />
-                  {featured.price}
+                  {featured.berries}
                   </h1>
                 </div>
               </div>
@@ -89,16 +81,17 @@ class Store extends Component {
             <div id="rewards">
               {rewards.map(reward => (
                 <div id="rewardCard">
-                  <img src={reward.picture} onClick={this.toggleForm} alt="" />
+                  <img src={reward.image} onClick={this.toggleForm} alt="" />
                   <div id="rewardsInfo">
                     <div className="rewardsTxt">
                       <h1 id="itemName">
                       {reward.name}
                       <br></br>
                       <img id="berryIcon" src="/images/redBerryIcon.png" alt="" />
-                      <h1 className="berryNum">{reward.price}</h1>
+                      <h1 className="berryNum">{reward.berries}</h1>
                       </h1>
                     </div>
+
                   </div>
                 </div>
               ))}

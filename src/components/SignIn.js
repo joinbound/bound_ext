@@ -36,13 +36,13 @@ class SignInBase extends Component {
   handleLogin = userCredential => {
     const { credential, user } = userCredential;
     localStorage.setItem('credentials', JSON.stringify(credential.toJSON()));
-    this.setState({ error: null, user: user });
+    this.setState({ error: null, user: user, userCredential});
   };
 
   // Handle Logout Status: clear credentials in localStorage and state
   handleLogout = (error = null) => {
     localStorage.removeItem('credentials');
-    this.setState({ error: error, user: null });
+    this.setState({ error: error, user: null, userCredential: null });
   };
 
   // Handle user login
@@ -65,12 +65,13 @@ class SignInBase extends Component {
   };
 
   render() {
-    const { user } = this.state;
+    const { user, userCredential } = this.state;
+    const { firebase } = this.props;
     return (
       <>
         {user ? (
           <>
-            <NavBar signOut={this.signOut} />
+            <NavBar signOut={this.signOut} userCredential={userCredential} firebase={firebase} />
           </>
         ) : (
           <div id="signin">
