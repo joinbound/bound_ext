@@ -89,7 +89,8 @@ class Store extends Component {
               <div  class="text-align: justify">Purchase Successful!</div>
               </ModalHeader>
               <ModalBody className="msg" >We'll reach out to you through email for shipping information shortly. If you have any questions, please feel free to contact us at help@joinbound.com.</ModalBody>
-              <Button outline color="danger" onClick={this.toggleAll}>All Done</Button>{' '}
+              
+              <Button outline color="danger" size="sm" block onClick={this.toggleAll}>All Done</Button>{' '}
         </Modal>
             </ModalBody>
         </Modal>

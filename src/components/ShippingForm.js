@@ -18,9 +18,6 @@ class ShippingForm extends Component {
     return (
     <div>
         <h2 id="ques" class="col text-center" >Are you sure you want to purchase this item?</h2>
-        {/* <Button outline color="danger" >Yes</Button>{' '}
-        <div class="divider"/>
-        <Button outline color="danger">No</Button>{' '} */}
     </div>
     );
   }
