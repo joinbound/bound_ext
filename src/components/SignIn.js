@@ -58,7 +58,7 @@ class SignInBase extends Component {
         return this.props.firebase
           .exportToDB()
           .collection('users')
-          .doc()
+          .doc(this.state.user.email)
           .set(
             {
               berries: 50,
@@ -69,7 +69,6 @@ class SignInBase extends Component {
             { merge: true }
           );
       })
-
       .catch(error => {
         this.setState({ error });
       });
@@ -84,7 +83,6 @@ class SignInBase extends Component {
   render() {
     const { user, userCredential } = this.state;
     const { firebase } = this.props;
-    console.log('user', user);
     return (
       <>
         {user ? (

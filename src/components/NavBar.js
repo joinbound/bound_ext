@@ -41,7 +41,7 @@ class NavBar extends Component {
       <div id="navigation">
         <div id="navTop">
           <img id="navLogo" src="/images/navIcon.png" alt="" />
-          <Berries userCredential={userCredential} />
+          <Berries userCredential={userCredential} firebase={firebase} />
         </div>
         {screen}
         <div id="navBottom">
