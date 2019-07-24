@@ -345,7 +345,7 @@ span.buttonText {
   justify-content: center;
 }
 
-#modalHeader {
+.modalHeader {
   margin-left: auto;
   margin-right: auto;
 }
@@ -377,5 +377,14 @@ color: rgba(0,0,0,0.73);
 letter-spacing: 0.4px;
 text-align: left;
 }
+
+.msg {
+  font-family: Roboto-Regular;
+  font-size: 15px;
+  color: rgba(0,0,0,0.73);
+  letter-spacing: 0.4px;
+  text-align: center;
+  }
+
 
  /*End Modal*/

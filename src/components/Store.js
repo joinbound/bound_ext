@@ -73,12 +73,24 @@ class Store extends Component {
     return (
       <>
 
-        <Modal id="modal" isOpen={this.state.modal}>
-          <ModalHeader toggle={this.toggleForm} id="modalHeader">
+        <Modal id="modal" isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+          <ModalHeader toggle={this.toggleForm} className="modalHeader">
             <div  class="text-align: justify">Purchase Confirmation  </div>
           </ModalHeader> 
-            <ModalBody>
+           <ModalBody>
               <ShippingForm />
+
+<Button outline color="danger" onClick={this.toggleNested} >Yes</Button>{' '}
+<div class="divider"/>
+<Button outline color="danger">No</Button>{' '}
+
+        <Modal id="modal" isOpen={this.state.nestedModal} toggle={this.toggleNested} onClosed={this.state.closeAll ? this.toggle : undefined}>
+              <ModalHeader className="modalHeader">
+              <div  class="text-align: justify">Purchase Successful!</div>
+              </ModalHeader>
+              <ModalBody className="msg" >We'll reach out to you through email for shipping information shortly. If you have any questions, please feel free to contact us at help@joinbound.com.</ModalBody>
+              <Button outline color="danger" onClick={this.toggleAll}>All Done</Button>{' '}
+        </Modal>
             </ModalBody>
         </Modal>
 
