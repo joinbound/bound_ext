@@ -27,12 +27,14 @@ class NavBar extends Component {
     }
   };
   render() {
+    const { userCredential, signOut, firebase } = this.props;
+
     let screen;
     let berryCount = 0;
     if (this.state.storeView === true) {
-      screen = <Store />;
+      screen = <Store firebase={firebase} />;
     } else if (this.state.storeView === false) {
-      screen = <Calendar signOut={this.props.signOut} />;
+      screen = <Calendar signOut={signOut} userCredential={userCredential} />;
     }
 
     return (
