@@ -74,12 +74,14 @@ class SignInBase extends Component {
           </>
         ) : (
           <div id="signin">
+            <div id="logoContainer">
             <img id="logo" src="/images/WhiteBoundLogo.png" alt="bound logo" />
             <button onClick={this.signIn} id="signinButton">
               <span className="icon" />
 
               <span className="buttonText"> Sign in with Google</span>
             </button>
+            </div>
           </div>
         )}
       </>

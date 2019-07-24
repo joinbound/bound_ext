@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { ShippingForm } from '.';
 
 class Store extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       data: [
         {
@@ -34,12 +34,8 @@ class Store extends Component {
       ],
       modal: false,
 
-      nestedModal: false,
-      closeAll: false
     };
     this.toggleForm = this.toggleForm.bind(this);
-    this.toggleNested = this.toggleNested.bind(this);
-    this.toggleAll = this.toggleAll.bind(this);
   }
 
   toggleForm() {
@@ -48,19 +44,7 @@ class Store extends Component {
     }));
   }
 
-  toggleNested() {
-    this.setState({
-      nestedModal: !this.state.nestedModal,
-      closeAll: false
-    });
-  }
 
-  toggleAll() {
-    this.setState({
-      nestedModal: !this.state.nestedModal,
-      closeAll: true
-    });
-  }
 
   render() {
     let featured = null;
@@ -73,25 +57,12 @@ class Store extends Component {
     return (
       <>
 
-        <Modal id="modal" isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal id="modal" isOpen={this.state.modal} toggle={this.toggleForm} className={this.props.className}>
           <ModalHeader toggle={this.toggleForm} className="modalHeader">
             <div  class="text-align: justify">Purchase Confirmation  </div>
           </ModalHeader> 
            <ModalBody>
-              <ShippingForm />
-
-<Button outline color="danger" onClick={this.toggleNested} >Yes</Button>{' '}
-<div class="divider"/>
-<Button outline color="danger">No</Button>{' '}
-
-        <Modal id="modal" isOpen={this.state.nestedModal} toggle={this.toggleNested} onClosed={this.state.closeAll ? this.toggle : undefined}>
-              <ModalHeader className="modalHeader">
-              <div  class="text-align: justify">Purchase Successful!</div>
-              </ModalHeader>
-              <ModalBody className="msg" >We'll reach out to you through email for shipping information shortly. If you have any questions, please feel free to contact us at help@joinbound.com.</ModalBody>
-              
-              <Button outline color="danger" size="sm" block onClick={this.toggleAll}>All Done</Button>{' '}
-        </Modal>
+              <ShippingForm toggleForm={this.toggleForm}/>
             </ModalBody>
         </Modal>
 
@@ -118,7 +89,7 @@ class Store extends Component {
             <div id="rewards">
               {rewards.map(reward => (
                 <div id="rewardCard">
-                  <img src={reward.picture} alt="" />
+                  <img src={reward.picture} onClick={this.toggleForm} alt="" />
                   <div id="rewardsInfo">
                     <div className="rewardsTxt">
                       <h1 id="itemName">
