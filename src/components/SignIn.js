@@ -4,7 +4,6 @@ import { withFirebase } from './firebase';
 import { compose } from 'recompose';
 import NavBar from './NavBar';
 
-
 class SignInBase extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +26,7 @@ class SignInBase extends Component {
       .then(userCredential => {
         this.handleLogin(userCredential);
       })
+
       .catch(error => {
         this.handleLogout(error);
       });
@@ -36,7 +36,7 @@ class SignInBase extends Component {
   handleLogin = userCredential => {
     const { credential, user } = userCredential;
     localStorage.setItem('credentials', JSON.stringify(credential.toJSON()));
-    this.setState({ error: null, user: user, userCredential});
+    this.setState({ error: null, user: user, userCredential });
   };
 
   // Handle Logout Status: clear credentials in localStorage and state
@@ -49,13 +49,30 @@ class SignInBase extends Component {
   signIn = event => {
     this.props.firebase
       .doSignInWithGoogle()
+
       .then(userCredential => {
         this.handleLogin(userCredential);
       })
+      .then(authUser => {
+        // Create a user in Cloud Firestore DB
+        return this.props.firebase
+          .exportToDB()
+          .collection('users')
+          .doc()
+          .set(
+            {
+              berries: 50,
+              user: this.state.user.uid,
+              email: this.state.user.email,
+              rewards: [],
+            },
+            { merge: true }
+          );
+      })
+
       .catch(error => {
         this.setState({ error });
       });
-
     event.preventDefault();
   };
 
@@ -67,21 +84,30 @@ class SignInBase extends Component {
   render() {
     const { user, userCredential } = this.state;
     const { firebase } = this.props;
+    console.log('user', user);
     return (
       <>
         {user ? (
           <>
-            <NavBar signOut={this.signOut} userCredential={userCredential} firebase={firebase} />
+            <NavBar
+              signOut={this.signOut}
+              userCredential={userCredential}
+              firebase={firebase}
+            />
           </>
         ) : (
           <div id="signin">
             <div id="logoContainer">
-            <img id="logo" src="/images/WhiteBoundLogo.png" alt="bound logo" />
-            <button onClick={this.signIn} id="signinButton">
-              <span className="icon" />
+              <img
+                id="logo"
+                src="/images/WhiteBoundLogo.png"
+                alt="bound logo"
+              />
+              <button onClick={this.signIn} id="signinButton">
+                <span className="icon" />
 
-              <span className="buttonText"> Sign in with Google</span>
-            </button>
+                <span className="buttonText"> Sign in with Google</span>
+              </button>
             </div>
           </div>
         )}

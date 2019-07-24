@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Store from './Store';
 import Calendar from './Calendar';
+import Berries from './Berries';
 
 class NavBar extends Component {
   constructor() {
@@ -28,9 +29,8 @@ class NavBar extends Component {
   };
   render() {
     const { userCredential, signOut, firebase } = this.props;
-
     let screen;
-    let berryCount = 0;
+
     if (this.state.storeView === true) {
       screen = <Store firebase={firebase} />;
     } else if (this.state.storeView === false) {
@@ -41,13 +41,7 @@ class NavBar extends Component {
       <div id="navigation">
         <div id="navTop">
           <img id="navLogo" src="/images/navIcon.png" alt="" />
-          <div id="container">
-            <div id="berries">
-              <img id="boundBerries" src="/images/WhiteBerryIcon.png" alt="" />
-              {/* hard coded for now, have to implement count function later */}
-              <h1 id="count">{berryCount}</h1>
-            </div>
-          </div>
+          <Berries userCredential={userCredential} />
         </div>
         {screen}
         <div id="navBottom">
