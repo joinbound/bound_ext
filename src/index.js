@@ -1,3 +1,5 @@
+//entry point
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
@@ -6,11 +8,12 @@ import Home from './Home';
 import Firebase from './providers/firebase/firebase';
 import { FirebaseContext } from './providers/firebase';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <FirebaseContext.Provider value={new Firebase()}>
     <SignInProvider>
-      <Home></Home>
+      <Home firebase={Firebase} />
     </SignInProvider>
   </FirebaseContext.Provider>,
 

@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -18,7 +19,10 @@ class Firebase {
 
     this.googleProvider = new app.auth.GoogleAuthProvider();
 
-    this.googleProvider.addScope('https://www.googleapis.com/auth/calendar.readonly');
+    this.googleProvider.addScope(
+      'https://www.googleapis.com/auth/calendar.readonly'
+    );
+    this.db = app.firestore();
   }
   // *** Auth API ***
 
@@ -36,6 +40,8 @@ class Firebase {
   doSignInWithGoogle = () => this.auth.signInWithPopup(this.googleProvider);
 
   doSignOut = () => this.auth.signOut();
+
+  exportToDB = () => this.db;
 }
 
 export default Firebase;

@@ -25,6 +25,7 @@ class SignInBase extends Component {
       .then(userCredential => {
         this.handleLogin(userCredential);
       })
+
       .catch(error => {
         this.handleLogout(error);
       });
@@ -47,13 +48,29 @@ class SignInBase extends Component {
   signIn = event => {
     this.props.firebase
       .doSignInWithGoogle()
+
       .then(userCredential => {
         this.handleLogin(userCredential);
+      })
+      .then(authUser => {
+        // Create a user in Cloud Firestore DB
+        return this.props.firebase
+          .exportToDB()
+          .collection('users')
+          .doc(this.state.user.email)
+          .set(
+            {
+              berries: 50,
+              user: this.state.user.uid,
+              email: this.state.user.email,
+              rewards: [],
+            },
+            { merge: true }
+          );
       })
       .catch(error => {
         this.setState({ error });
       });
-
     event.preventDefault();
   };
 
@@ -64,10 +81,11 @@ class SignInBase extends Component {
 
   render() {
     const { user } = this.state;
+    const { firebase } = this.props;
     return (
       <>
         {user ? (
-          <Home signOut={this.signOut} />
+          <Home signOut={this.signOut} firebase={firebase} user={user} />
         ) : (
           <div id="signin">
             <img id="logo" src="/images/WhiteBoundLogo.png" alt="bound logo" />
@@ -81,8 +99,6 @@ class SignInBase extends Component {
     );
   }
 }
-const SignInProvider = compose(
-  withFirebase
-)(SignInBase);
+const SignInProvider = compose(withFirebase)(SignInBase);
 
 export default SignInProvider;
