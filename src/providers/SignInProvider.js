@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { withFirebase } from './firebase';
 import { compose } from 'recompose';
-import NavBar from './NavBar';
+import { withFirebase } from './firebase';
+import Home from '../Home';
 
 class SignInBase extends Component {
   constructor(props) {
@@ -35,13 +34,13 @@ class SignInBase extends Component {
   handleLogin = userCredential => {
     const { credential, user } = userCredential;
     localStorage.setItem('credentials', JSON.stringify(credential.toJSON()));
-    this.setState({ error: null, user: user });
+    this.setState({ error: null, user });
   };
 
   // Handle Logout Status: clear credentials in localStorage and state
   handleLogout = (error = null) => {
     localStorage.removeItem('credentials');
-    this.setState({ error: error, user: null });
+    this.setState({ error, user: null });
   };
 
   // Handle user login
@@ -68,15 +67,12 @@ class SignInBase extends Component {
     return (
       <>
         {user ? (
-          <>
-            <NavBar signOut={this.signOut} />
-          </>
+          <Home signOut={this.signOut} />
         ) : (
           <div id="signin">
             <img id="logo" src="/images/WhiteBoundLogo.png" alt="bound logo" />
             <button onClick={this.signIn} id="signinButton">
               <span className="icon" />
-
               <span className="buttonText"> Sign in with Google</span>
             </button>
           </div>
@@ -85,9 +81,8 @@ class SignInBase extends Component {
     );
   }
 }
-const SignIn = compose(
-  withRouter,
+const SignInProvider = compose(
   withFirebase
 )(SignInBase);
 
-export default SignIn;
+export default SignInProvider;

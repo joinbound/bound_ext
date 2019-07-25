@@ -61,13 +61,17 @@ class Calendar extends Component {
                   src="/images/redBerryIcon.png"
                   alt="Event Time"
                 />
-                {event.numberOfBerries} Berries{' '}
+                {event.numberOfBerries}
+                {' '}
+                Berries
                 <img
                   id="eventMemberIcon"
                   src="/images/eventMemberIcon.png"
                   alt="Event Time"
                 />
-                {event.numberOfPeople} People{' '}
+                {event.numberOfPeople}
+                {' '}
+                People
               </div>
 
               <div className="checkInButton">
@@ -76,9 +80,6 @@ class Calendar extends Component {
             </div>
           );
         })}
-        <h1 id="signOut" onClick={this.props.signOut}>
-          Log Out
-        </h1>
       </div>
     );
   }
