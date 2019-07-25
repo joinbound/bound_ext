@@ -42,7 +42,6 @@ class Store extends Component {
     let { featured, rewards } = this.state;
     if (!featured) featured = {};
 
-    console.log('props in store', this.props);
     return (
       <>
         <Modal

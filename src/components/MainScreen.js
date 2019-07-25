@@ -3,7 +3,6 @@ import { Store, Calendar } from '.';
 
 class MainScreen extends Component {
   render() {
-    console.log('props in main screen', this.props);
     const { displayStore } = this.props;
 
     return (

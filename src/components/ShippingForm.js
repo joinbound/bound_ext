@@ -37,7 +37,7 @@ class ShippingForm extends Component {
           Yes
         </Button>{' '}
         <div class="divider" />
-        <Button outline color="danger" onClick={this.toggleAll}>
+        <Button outline color="danger" onClick={this.props.toggleForm}>
           No
         </Button>{' '}
         <Modal

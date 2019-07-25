@@ -18,7 +18,6 @@ class Home extends Component {
   };
 
   render() {
-    console.log('props in home', this.props);
     const { storeView } = this.state;
     const { signOut, firebase } = this.props;
 
