@@ -289,3 +289,56 @@ code {
   letter-spacing: 0.2px;
   text-align: left;
 }
+
+
+ /* Purchase modal */
+ #title {
+  justify-content: center;
+}
+
+.modalHeader {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ #modal {
+  font-family: 'gotham';
+  font-size: 12px;
+  text-align: center;
+  /* position: fixed;
+  top: 0; */
+  width: 100%;
+  background-color: white;
+  border-radius: 11px;
+  /* box-shadow: 2px 13px 25px -2px rgba(0, 0, 0, 0.75); */
+}
+
+
+.divider {
+  width: 50px;
+  height:auto;
+  display:inline-block;
+  justify-content: justify;
+}
+
+#ques {
+  font-family: 'Roboto', sans-serif;
+font-size: 15px;
+color: rgba(0,0,0,0.73);
+letter-spacing: 0.4px;
+text-align: left;
+}
+
+.msg {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  color: rgba(0,0,0,0.73);
+  letter-spacing: 0.4px;
+  text-align: center;
+  }
+
+#allDoneBttn {
+margin: 2%;
+}
+ 
+ /*End Modal*/
