@@ -17,7 +17,6 @@ class Header extends Component {
       .get()
       .then(doc => {
         this.setState({ user: doc.data() });
-        this.setState({ berries: this.state.user.berries });
       });
   }
 
