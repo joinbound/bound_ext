@@ -19,6 +19,9 @@ class Firebase {
 
     this.googleProvider = new app.auth.GoogleAuthProvider();
 
+    this.googleProvider.addScope(
+      'https://www.googleapis.com/auth/calendar.readonly'
+    );
     this.db = app.firestore();
   }
   // *** Auth API ***

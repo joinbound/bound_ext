@@ -1,25 +1,20 @@
 //entry point
 
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import { SignIn, NavBar } from './components';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Firebase from './components/firebase/firebase';
-import { FirebaseContext } from './components/firebase';
+import './index.scss';
+import { SignInProvider } from './providers';
+import Home from './Home';
+import Firebase from './providers/firebase/firebase';
+import { FirebaseContext } from './providers/firebase';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-
 ReactDOM.render(
   <FirebaseContext.Provider value={new Firebase()}>
-    <Router>
-      <SignIn>
-        <NavBar />
-      </SignIn>
-    </Router>
+    <SignInProvider>
+      <Home firebase={Firebase} />
+    </SignInProvider>
   </FirebaseContext.Provider>,
 
   document.getElementById('root')

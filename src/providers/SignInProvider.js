@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { withFirebase } from './firebase';
 import { compose } from 'recompose';
-import NavBar from './NavBar';
-
+import { withFirebase } from './firebase';
+import Home from '../Home';
 
 class SignInBase extends Component {
   constructor(props) {
@@ -27,6 +25,7 @@ class SignInBase extends Component {
       .then(userCredential => {
         this.handleLogin(userCredential);
       })
+
       .catch(error => {
         this.handleLogout(error);
       });
@@ -36,26 +35,42 @@ class SignInBase extends Component {
   handleLogin = userCredential => {
     const { credential, user } = userCredential;
     localStorage.setItem('credentials', JSON.stringify(credential.toJSON()));
-    this.setState({ error: null, user: user, userCredential});
+    this.setState({ error: null, user });
   };
 
   // Handle Logout Status: clear credentials in localStorage and state
   handleLogout = (error = null) => {
     localStorage.removeItem('credentials');
-    this.setState({ error: error, user: null, userCredential: null });
+    this.setState({ error, user: null });
   };
 
   // Handle user login
   signIn = event => {
     this.props.firebase
       .doSignInWithGoogle()
+
       .then(userCredential => {
         this.handleLogin(userCredential);
+      })
+      .then(authUser => {
+        // Create a user in Cloud Firestore DB
+        return this.props.firebase
+          .exportToDB()
+          .collection('users')
+          .doc(this.state.user.email)
+          .set(
+            {
+              berries: 50,
+              user: this.state.user.uid,
+              email: this.state.user.email,
+              rewards: [],
+            },
+            { merge: true }
+          );
       })
       .catch(error => {
         this.setState({ error });
       });
-
     event.preventDefault();
   };
 
@@ -65,21 +80,18 @@ class SignInBase extends Component {
   };
 
   render() {
-    const { user, userCredential } = this.state;
+    const { user } = this.state;
     const { firebase } = this.props;
     return (
       <>
         {user ? (
-          <>
-            <NavBar signOut={this.signOut} userCredential={userCredential} firebase={firebase} />
-          </>
+          <Home signOut={this.signOut} firebase={firebase} user={user} />
         ) : (
           <div id="signin">
-            <div id="logoContainer">
+            <div id="logoAndBttn">
             <img id="logo" src="/images/WhiteBoundLogo.png" alt="bound logo" />
             <button onClick={this.signIn} id="signinButton">
               <span className="icon" />
-
               <span className="buttonText"> Sign in with Google</span>
             </button>
             </div>
@@ -89,9 +101,6 @@ class SignInBase extends Component {
     );
   }
 }
-const SignIn = compose(
-  withRouter,
-  withFirebase
-)(SignInBase);
+const SignInProvider = compose(withFirebase)(SignInBase);
 
-export default SignIn;
+export default SignInProvider;

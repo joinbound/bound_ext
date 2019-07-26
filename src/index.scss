@@ -1,0 +1,382 @@
+@font-face {
+  font-family: 'gotham';
+  src: url(./fonts/GothamRndSSm-Bold.otf) format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Roboto Medium', sans-serif;
+  src: url(./fonts/Roboto-Medium.ttf) format('truetype');
+  src: url(./fonts/Roboto-Regular.ttf) format('truetype');
+  /* font-weight: normal; */
+}
+
+@font-face {
+  font-family: 'Roboto', sans-serif;
+  src: url(./fonts/Roboto-Regular.ttf) format('truetype');
+  font-weight: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: auto;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#home {
+  width: 360px;
+  height: 600px;
+}
+
+#signin {
+  background-image: url('/images/signin_page.png');
+  width: 360px;
+  height: 600px;
+  text-align: center;
+  #logo {
+    width: 265px;
+    height: auto;
+    display: block;
+    padding-top: 22%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+}
+
+#signinButton {
+  display: inline-block;
+  background: white;
+  color: #444;
+  border: thin solid #888;
+  border-radius: 5px;
+  white-space: nowrap;
+  margin-top: 10%;
+  .icon {
+    background: url('/images/googleG.png') transparent 5px 50% no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+  }
+  .buttonText {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 42px;
+    padding-right: 42px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+  }
+}
+
+#signOut {
+  font-size: 1em;
+  float: right;
+  padding-right: 10%;
+  color: #ff5252;
+}
+
+#header {
+  text-align: center;
+  margin-top: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: 0 2px 6px -6px black;
+  #headerLogo {
+    margin-left: 30%;
+    margin-right: auto;
+    text-align: center;
+  }
+  #container {
+    width: 20%;
+    height: 30%;
+    #berries {
+      background-color: #ff5252;
+      border-radius: 18px;
+      width: auto;
+      height: 33px;
+      padding: 9px;
+      overflow: hidden;
+      text-align: center;
+    }
+    #boundBerries {
+      width: 40%;
+      padding: 0px 3px;
+      float: left;
+    }
+    #count {
+      color: white;
+      float: right;
+      padding-right: 10%;
+      font-size: 0.8em;
+    }
+  }
+ }
+
+#navBottom {
+  position: fixed;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 7px;
+  box-shadow: 0px -2px 6px -6px black;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+}
+
+#navTop {
+  text-align: center;
+  margin-top: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: 0 2px 6px -6px black;
+}
+
+/*Store CSS*/
+#store {
+  border: 2px solid #f4f4f7;
+  background-color: #f4f4f7;
+  
+  #storeBody {
+    height: 460px;
+    margin: 10px;
+    overflow: scroll;
+    #featured {
+      position: relative;
+      #featuredInfo {
+        position: relative;
+        font-size: 14px;
+        font-family: 'Roboto Medium', sans-serif;
+        font-weight: bold;
+        color: white;
+        opacity: 0.75;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000);
+        position: absolute;
+        bottom: 2px;
+        width: 100%;
+        border-bottom-left-radius: 11px;
+        border-bottom-right-radius: 11px;
+        .rewardsTxt {
+          margin-left: 10px;
+          margin-bottom: 10px;
+          #featuredName {
+            font-family: 'gotham';
+            font-size: 18px;
+          }
+        }
+      }
+    }
+    #rewards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      #rewardCard {
+        margin-top: 5%;
+        width: 159px;
+        height: 160px;
+        border-radius: 11px;
+        border: 2px solid #f4f4f7;
+        background-color: white;
+        position: relative;
+        #rewardsInfo {
+          padding-left: 8%;
+          position: relative;
+          font-size: 14px;
+          font-family: 'Roboto Medium', sans-serif;
+          font-weight: bold;
+          color: white;
+          opacity: 0.75;
+          background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000);
+          position: absolute;
+          bottom: 2px;
+          width: 100%;
+          border-bottom-left-radius: 11px;
+          border-bottom-right-radius: 11px;
+          h1 {
+            font-size: 14px;
+          }
+          .berryNum {
+            margin-top: -13%;
+            padding-left: 15%;
+            width: 152px;
+            height: 41px;
+            object-fit: contain;
+            font-family: 'gotham';
+            font-size: 12px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0.22px;
+            color: #ffffff;
+          }
+          #berryIcon {
+            width: 15%;
+            height: 15%;
+          }
+          #itemName {
+            display: block;
+            position: relative;
+            top: 28px;
+            padding-bottom: -40px;
+          }
+        }
+      }
+    }
+    #featured img, #rewards img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 11px;
+    }
+  }
+}
+/* Calendar CSS*/
+/* Main container that holds everything, includes all the other divs*/
+#calBody {
+  height: 460px;
+  overflow: scroll;
+  padding-left: 8%;
+  background-color: white;
+  #upcomingEvents {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.78);
+    letter-spacing: 0.25px;
+    text-align: left;
+  }
+  #eventInfoAndCheckInButton {
+    width: 303px;
+    height: 109px;
+    border-radius: 6px;
+    box-shadow: 0.5px 0.5px 4px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    #eventDetails {
+      width: 142px;
+      height: 70px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.77;
+      letter-spacing: 0.2px;
+      color: rgba(0, 0, 0, 0.78);
+      padding-top: 7%;
+      #eventTitleIcon {
+        padding-left: 5px;
+        padding-right: 2px;
+        height: 20%;
+        width: 13%;
+      }
+      #eventTimeIcon {
+        padding-left: 5px;
+        padding-right: 2px;
+        height: 15%;
+        width: 10%;
+      }
+
+      #eventBerryIcon {
+        padding-left: 5px;
+        padding-right: 2px;
+        height: 20%;
+        width: 10%;
+      }
+    }
+    #checkIn {
+      font-family: 'Roboto Medium', sans-serif;
+      font-size: 12px;
+      color: #ffffff;
+      letter-spacing: 0.22px;
+      text-align: center;
+      line-height: 13px;
+      border-radius: 50%;
+      width: 77px;
+      height: 77px;
+      background-color: #9b9b9b;
+      border: 1px solid #979797;
+      float: right;
+      margin-top: -53px;
+      margin-right: 15px;
+    }
+  }
+}
+
+/* text for number of berries */
+#numberOfBerries {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+  text-align: left;
+}
+
+
+ /* Purchase modal */
+ #title {
+  justify-content: center;
+}
+
+.modalHeader {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ #modal {
+  font-family: 'gotham';
+  font-size: 12px;
+  text-align: center;
+  /* position: fixed;
+  top: 0; */
+  width: 100%;
+  background-color: white;
+  border-radius: 11px;
+  /* box-shadow: 2px 13px 25px -2px rgba(0, 0, 0, 0.75); */
+}
+
+
+.divider {
+  width: 50px;
+  height:auto;
+  display:inline-block;
+  justify-content: justify;
+}
+
+#ques {
+  font-family: 'Roboto', sans-serif;
+font-size: 15px;
+color: rgba(0,0,0,0.73);
+letter-spacing: 0.4px;
+text-align: left;
+}
+
+.msg {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  color: rgba(0,0,0,0.73);
+  letter-spacing: 0.4px;
+  text-align: center;
+  }
+
+#allDoneBttn {
+margin: 2%;
+}
+ 
+ /*End Modal*/
