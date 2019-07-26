@@ -42,13 +42,14 @@ code {
   height: 600px;
   text-align: center;
   #logo {
-    width: 232px;
-    height: 287px;
+    width: 265px;
+    height: auto;
     display: block;
-    padding-top: 15%;
+    padding-top: 22%;
     margin-left: auto;
     margin-right: auto;
   }
+
 }
 
 #signinButton {
@@ -106,26 +107,24 @@ code {
       background-color: #ff5252;
       border-radius: 18px;
       width: auto;
-      padding: 0.03;
+      height: 33px;
+      padding: 9px;
+      overflow: hidden;
       text-align: center;
-      overflow: auto;
-      margin: auto;
     }
     #boundBerries {
-      width: 35%;
-      height: auto;
+      width: 40%;
+      padding: 0px 3px;
       float: left;
-      padding-left: 18%;
-      margin-top: 5%;
     }
     #count {
       color: white;
       float: right;
-      padding-right: 18%;
+      padding-right: 10%;
       font-size: 0.8em;
     }
   }
-}
+ }
 
 #navBottom {
   position: fixed;
@@ -137,6 +136,17 @@ code {
   bottom: 0;
   width: 100%;
   background-color: white;
+}
+
+#navTop {
+  text-align: center;
+  margin-top: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: 0 2px 6px -6px black;
 }
 
 /*Store CSS*/
@@ -161,7 +171,8 @@ code {
         position: absolute;
         bottom: 2px;
         width: 100%;
-        border-radius: 11px;
+        border-bottom-left-radius: 11px;
+        border-bottom-right-radius: 11px;
         .rewardsTxt {
           margin-left: 10px;
           margin-bottom: 10px;
@@ -185,6 +196,7 @@ code {
         background-color: white;
         position: relative;
         #rewardsInfo {
+          padding-left: 8%;
           position: relative;
           font-size: 14px;
           font-family: 'Roboto Medium', sans-serif;
@@ -195,9 +207,35 @@ code {
           position: absolute;
           bottom: 2px;
           width: 100%;
-          border-radius: 11px;
+          border-bottom-left-radius: 11px;
+          border-bottom-right-radius: 11px;
           h1 {
             font-size: 14px;
+          }
+          .berryNum {
+            margin-top: -13%;
+            padding-left: 15%;
+            width: 152px;
+            height: 41px;
+            object-fit: contain;
+            font-family: 'gotham';
+            font-size: 12px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0.22px;
+            color: #ffffff;
+          }
+          #berryIcon {
+            width: 15%;
+            height: 15%;
+          }
+          #itemName {
+            display: block;
+            position: relative;
+            top: 28px;
+            padding-bottom: -40px;
           }
         }
       }
@@ -275,7 +313,7 @@ code {
       background-color: #9b9b9b;
       border: 1px solid #979797;
       float: right;
-      margin-top: -75px;
+      margin-top: -53px;
       margin-right: 15px;
     }
   }

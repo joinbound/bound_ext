@@ -88,11 +88,13 @@ class SignInBase extends Component {
           <Home signOut={this.signOut} firebase={firebase} user={user} />
         ) : (
           <div id="signin">
+            <div id="logoAndBttn">
             <img id="logo" src="/images/WhiteBoundLogo.png" alt="bound logo" />
             <button onClick={this.signIn} id="signinButton">
               <span className="icon" />
               <span className="buttonText"> Sign in with Google</span>
             </button>
+            </div>
           </div>
         )}
       </>
