@@ -21,6 +21,19 @@ class ShippingForm extends Component {
   }
 
   toggleAll() {
+    const { firebase, user, selected } = this.props;
+    const updatedBerries = user.berries - selected.berries;
+    const updatedRewards = [...user.rewards, selected.name];
+
+    firebase
+      .exportToDB()
+      .collection('users')
+      .doc(user.email)
+      .update({
+        berries: updatedBerries,
+        rewards: [...user.rewards, selected],
+      });
+
     this.setState({
       nestedModal: !this.state.nestedModal,
       closeAll: true,
@@ -28,6 +41,8 @@ class ShippingForm extends Component {
   }
 
   render() {
+    console.log('props', this.props);
+    console.log('selected in shipping', this.props.selected);
     return (
       <div>
         <h2 id="ques" class="col text-center">

@@ -53,8 +53,7 @@ class Store extends Component {
     let { featured, rewards, user, selected } = this.state;
     if (!featured) featured = {};
     if (!user) user = {};
-    console.log('state', this.state.selected, 'user', user.berries);
-
+    console.log('user', user);
     return (
       <>
         <Modal
@@ -69,7 +68,12 @@ class Store extends Component {
                 <div class="text-align: justify">Purchase Confirmation </div>
               </ModalHeader>
               <ModalBody>
-                <ShippingForm toggleForm={this.toggleForm} />
+                <ShippingForm
+                  toggleForm={this.toggleForm}
+                  user={user}
+                  selected={selected}
+                  firebase={this.props.firebase}
+                />
               </ModalBody>
             </>
           ) : (
