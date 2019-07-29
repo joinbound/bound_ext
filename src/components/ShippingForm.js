@@ -23,7 +23,6 @@ class ShippingForm extends Component {
   toggleAll() {
     const { firebase, user, selected } = this.props;
     const updatedBerries = user.berries - selected.berries;
-    const updatedRewards = [...user.rewards, selected.name];
 
     firebase
       .exportToDB()

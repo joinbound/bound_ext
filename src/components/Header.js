@@ -14,16 +14,15 @@ class Header extends Component {
       .exportToDB()
       .collection('users')
       .doc(user.email)
-      .get()
-      .then(doc => {
+      .onSnapshot({ includeMetadataChanges: true }, doc => {
         this.setState({ user: doc.data() });
         this.setState({ berries: this.state.user.berries });
       });
   }
 
   render() {
-    const { berries } = this.state;
-
+    const { berries, user } = this.state;
+    console.log('USERRR', user);
     return (
       <div id="header">
         <img id="headerLogo" src="/images/navIcon.png" alt="" />
