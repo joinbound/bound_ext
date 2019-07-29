@@ -22,7 +22,7 @@ class Header extends Component {
 
   render() {
     const { berries, user } = this.state;
-    console.log('USERRR', user);
+    // console.log('USERRR', user);
     return (
       <div id="header">
         <img id="headerLogo" src="/images/navIcon.png" alt="" />

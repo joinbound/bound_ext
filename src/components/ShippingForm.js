@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
-// import Berries from './Berries';
 
 class ShippingForm extends Component {
   constructor() {
@@ -40,8 +39,6 @@ class ShippingForm extends Component {
   }
 
   render() {
-    console.log('props', this.props);
-    console.log('selected in shipping', this.props.selected);
     return (
       <div>
         <h2 id="ques" class="col text-center">

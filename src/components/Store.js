@@ -53,7 +53,6 @@ class Store extends Component {
     let { featured, rewards, user, selected } = this.state;
     if (!featured) featured = {};
     if (!user) user = {};
-    console.log('user', user);
     return (
       <>
         <Modal
