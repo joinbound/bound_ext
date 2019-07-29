@@ -10,18 +10,20 @@ class Store extends Component {
       store: [],
       featured: {},
       rewards: [],
+      selected: {},
+      user: null,
     };
     this.toggleForm = this.toggleForm.bind(this);
   }
 
-  toggleForm() {
+  toggleForm(evt) {
     this.setState(prevState => ({
       modal: !prevState.modal,
     }));
   }
 
   componentDidMount() {
-    const { firebase } = this.props;
+    const { firebase, user } = this.props;
     firebase
       .exportToDB()
       .collection('marketplace')
@@ -36,11 +38,22 @@ class Store extends Component {
         this.setState({ featured: this.state.store[0] });
         this.setState({ rewards: this.state.store.slice(1) });
       });
+
+    firebase
+      .exportToDB()
+      .collection('users')
+      .doc(user.email)
+      .get()
+      .then(doc => {
+        this.setState({ user: doc.data() });
+      });
   }
 
   render() {
-    let { featured, rewards } = this.state;
+    let { featured, rewards, user, selected } = this.state;
     if (!featured) featured = {};
+    if (!user) user = {};
+    console.log('state', this.state.selected, 'user', user.berries);
 
     return (
       <>
@@ -50,17 +63,33 @@ class Store extends Component {
           toggle={this.toggleForm}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggleForm} className="modalHeader">
-            <div class="text-align: justify">Purchase Confirmation </div>
-          </ModalHeader>
-          <ModalBody>
-            <ShippingForm toggleForm={this.toggleForm} />
-          </ModalBody>
+          {user.berries >= selected.berries ? (
+            <>
+              <ModalHeader toggle={this.toggleForm} className="modalHeader">
+                <div class="text-align: justify">Purchase Confirmation </div>
+              </ModalHeader>
+              <ModalBody>
+                <ShippingForm toggleForm={this.toggleForm} />
+              </ModalBody>
+            </>
+          ) : (
+            <>
+              <ModalHeader toggle={this.toggleForm} className="modalHeader">
+                <div class="text-align: justify">Insufficent berries</div>
+              </ModalHeader>
+              <ModalBody toggle={this.toggleForm}>
+                Sorry! You don't have enough berries to purchase this item yet!
+              </ModalBody>
+            </>
+          )}
         </Modal>
 
         <div id="store">
           <div id="storeBody">
-            <div id="featured">
+            <div
+              id="featured"
+              onClick={() => this.setState({ selected: featured })}
+            >
               <img
                 id="featuredImg"
                 src={featured.image}
@@ -73,14 +102,18 @@ class Store extends Component {
                     {featured.name}
                     <br />
                     <img id="berryIcon" src="/images/redBerryIcon.png" alt="" />
-                    {featured.berries}
+                    <div id="berries" />
+                    <h1 className="berryNum">{featured.berries}</h1>
                   </h1>
                 </div>
               </div>
             </div>
             <div id="rewards">
               {rewards.map(reward => (
-                <div id="rewardCard">
+                <div
+                  id="rewardCard"
+                  onClick={() => this.setState({ selected: reward })}
+                >
                   <img src={reward.image} onClick={this.toggleForm} alt="" />
                   <div id="rewardsInfo">
                     <div className="rewardsTxt">
