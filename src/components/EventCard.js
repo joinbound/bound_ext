@@ -7,6 +7,7 @@ class EventCard extends Component {
     this.state = {
       berries: 0,
       user: null,
+      clicked: false,
     };
     this.addBerries = this.addBerries.bind(this);
   }
@@ -34,8 +35,23 @@ class EventCard extends Component {
       .update({
         berries: updatedBerries,
       });
+    this.setState({ clicked: true });
+    //to test
+    // this.setState({ clicked: !this.state.checked });
   }
+
   render() {
+    const buttonStyle = {
+      backgroundColor: '#9b9b9b',
+    };
+    const buttonStyleClicked = {
+      backgroundColor: '#ff5252',
+      lineHeight: '17px',
+      fontSize: '13px',
+      paddingTop: '5px',
+      fontWeight: 'bold',
+    };
+
     const {
       data: { eventTitle, numberOfBerries, numberOfPeople, time, isAllDay },
     } = this.props;
@@ -72,13 +88,26 @@ class EventCard extends Component {
           />
           {numberOfPeople} People
         </div>
-
-        <div className="checkInButton">
-          <button id="checkIn" onClick={this.addBerries}>
-            {' '}
-            Check in 15 minutes before
-          </button>
-        </div>
+        {this.state.clicked ? (
+          <div className="checkInButton">
+            <button id="checkIn" style={buttonStyle} onClick={this.addBerries}>
+              {' '}
+              Check in 15 minutes before
+            </button>
+          </div>
+        ) : (
+          <div className="checkInButton">
+            <button
+              id="checkIn"
+              style={buttonStyleClicked}
+              //to test
+              //   onClick={this.addBerries}
+            >
+              {' '}
+              Checked In!
+            </button>
+          </div>
+        )}
       </div>
     );
   }

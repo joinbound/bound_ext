@@ -81,7 +81,10 @@ class Store extends Component {
                 <div class="text-align: justify">Insufficent berries</div>
               </ModalHeader>
               <ModalBody toggle={this.toggleForm}>
-                Sorry! You don't have enough berries to purchase this item yet!
+                <h2 id="ques" class="col text-center">
+                  Sorry! You don't have enough berries to purchase this item
+                  yet!
+                </h2>
               </ModalBody>
             </>
           )}
