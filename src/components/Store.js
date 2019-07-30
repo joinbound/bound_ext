@@ -100,15 +100,16 @@ class Store extends Component {
                 alt=""
               />
               <div id="featuredInfo">
-                <div className="rewardsTxt">
-                  <h1 id="featuredName">
-                    {featured.name}
-                    <br />
-                    <img id="berryIcon" src="/images/redBerryIcon.png" alt="" />
-                    <div id="berries" />
-                    <h1 className="berryNum">{featured.berries}</h1>
-                  </h1>
-                </div>
+                <h1 id="featuredName">
+                  {featured.name}
+                  <br />
+                  <img
+                    className="berryIcon"
+                    src="/images/redBerryIcon.png"
+                    alt=""
+                  />
+                  <h1 className="berryNumFeat">{featured.berries}</h1>
+                </h1>
               </div>
             </div>
             <div id="rewards">
@@ -124,7 +125,7 @@ class Store extends Component {
                         {reward.name}
                         <br />
                         <img
-                          id="berryIcon"
+                          className="berryIcon"
                           src="/images/redBerryIcon.png"
                           alt=""
                         />
