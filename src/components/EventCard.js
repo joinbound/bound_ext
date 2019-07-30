@@ -42,7 +42,6 @@ class EventCard extends Component {
     let { user } = this.state;
     if (!user) user = {};
 
-    console.log('HGELLO', this.state.user);
     return (
       <div id="eventInfoAndCheckInButton">
         <div id="eventDetails">
