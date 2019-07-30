@@ -10,7 +10,11 @@ class MainScreen extends Component {
         {displayStore ? (
           <Store firebase={this.props.firebase} user={this.props.user} />
         ) : (
-          <Calendar signOut={this.props.signOut} />
+          <Calendar
+            signOut={this.props.signOut}
+            user={this.props.user}
+            firebase={this.props.firebase}
+          />
         )}
       </div>
     );

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
-// import Berries from './Berries';
 
 class ShippingForm extends Component {
   constructor() {
@@ -21,6 +20,18 @@ class ShippingForm extends Component {
   }
 
   toggleAll() {
+    const { firebase, user, selected } = this.props;
+    const updatedBerries = user.berries - selected.berries;
+
+    firebase
+      .exportToDB()
+      .collection('users')
+      .doc(user.email)
+      .update({
+        berries: updatedBerries,
+        rewards: [...user.rewards, selected],
+      });
+
     this.setState({
       nestedModal: !this.state.nestedModal,
       closeAll: true,

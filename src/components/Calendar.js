@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import scriptLoader from 'react-async-script-loader'
-import EventCard from './EventCard'
+import scriptLoader from 'react-async-script-loader';
+import EventCard from './EventCard';
 import * as moment from 'moment';
 
 class Calendar extends Component {
@@ -12,14 +12,15 @@ class Calendar extends Component {
   }
 
   loadCalendarApi() {
-    const script = document.createElement("script");
-    script.src = "https://apis.google.com/js/client.js";
+    const script = document.createElement('script');
+    script.src = 'https://apis.google.com/js/client.js';
 
     let calendar = this;
 
     script.onload = () => {
       window.gapi.load('client:auth2', () => {
         window.gapi.client.setApiKey(process.env.REACT_APP_API_KEY);
+
         window.gapi.auth.authorize({
           client_id: '121179289007-bbd4nrrm6g5sutpao31auapgp482etdo.apps.googleusercontent.com',
           scope: "https://www.googleapis.com/auth/calendar.events",
@@ -76,13 +77,17 @@ class Calendar extends Component {
     return (
       <div id="calBody">
         <h1 id="upcomingEvents"> Upcoming Events </h1>
-        {calendarData.map((event, index) => <EventCard data={event} key={index}></EventCard>)}
+        {calendarData.map((event, index) => (
+          <EventCard
+            data={event}
+            key={index}
+            user={this.props.user}
+            firebase={this.props.firebase}
+          />
+        ))}
       </div>
     );
   }
 }
 
-export default scriptLoader(
-  'https://apis.google.com/js/api.js'
-)(Calendar)
-
+export default scriptLoader('https://apis.google.com/js/api.js')(Calendar);
