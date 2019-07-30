@@ -25,6 +25,7 @@ class EventCard extends Component {
   }
 
   addBerries() {
+    this.setState({ clicked: true });
     const { firebase, user } = this.props;
     const updatedBerries =
       this.state.user.berries + this.props.data.numberOfBerries;
@@ -35,9 +36,6 @@ class EventCard extends Component {
       .update({
         berries: updatedBerries,
       });
-    this.setState({ clicked: true });
-    //to test
-    // this.setState({ clicked: !this.state.checked });
   }
 
   render() {
@@ -88,7 +86,7 @@ class EventCard extends Component {
           />
           {numberOfPeople} People
         </div>
-        {this.state.clicked ? (
+        {this.state.clicked === false ? (
           <div className="checkInButton">
             <button id="checkIn" style={buttonStyle} onClick={this.addBerries}>
               {' '}
@@ -97,12 +95,7 @@ class EventCard extends Component {
           </div>
         ) : (
           <div className="checkInButton">
-            <button
-              id="checkIn"
-              style={buttonStyleClicked}
-              //to test
-              //   onClick={this.addBerries}
-            >
+            <button id="checkIn" style={buttonStyleClicked}>
               {' '}
               Checked In!
             </button>
