@@ -45,7 +45,7 @@ class Calendar extends Component {
                 .then(
                   function(response) {
                     let events = response.result.items;
-                    console.log(events);
+                    console.log('events', events);
                     const newEventsState = events.reduce(
                       (eventsState, event) => {
                         if (event.attendees && event.attendees.length >= 2) {
