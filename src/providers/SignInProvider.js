@@ -82,6 +82,7 @@ class SignInBase extends Component {
   render() {
     const { user } = this.state;
     const { firebase } = this.props;
+    console.log(user);
     return (
       <>
         {user ? (
