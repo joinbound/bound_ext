@@ -32,7 +32,7 @@ class Home extends Component {
         <h1 id="signOut" onClick={signOut}>
           Log Out
         </h1>
-        <NavigationBar handleClick={this.handleClick} />
+        <NavigationBar handleClick={this.handleClick} storeView={storeView} />
       </div>
     );
   }
