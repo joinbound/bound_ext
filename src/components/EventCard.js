@@ -6,21 +6,31 @@ class EventCard extends Component {
     const buttonStyle = {
       backgroundColor: '#9b9b9b',
     };
-    const buttonStyleClicked = {
+    const buttonStyleRed = {
       backgroundColor: '#ff5252',
       lineHeight: '17px',
       fontSize: '13px',
-      paddingTop: '5px',
       fontWeight: 'bold',
     };
 
     const {
-      data: { eventTitle, numberOfBerries, numberOfPeople, time, isAllDay, calendarId},
+      data: {
+        eventTitle,
+        numberOfBerries,
+        numberOfPeople,
+        time,
+        isAllDay,
+        calendarId,
+      },
       user,
       handleUserData,
     } = this.props;
 
     const checkedIn = user.checkedInEvents.includes(calendarId);
+
+    const today = new Date();
+    let eventTime = new Date(time);
+    eventTime.setMinutes(eventTime.getMinutes() - 15);
 
     return (
       <div id="eventInfoAndCheckInButton">
@@ -52,18 +62,24 @@ class EventCard extends Component {
           />
           {numberOfPeople} People
         </div>
-        {!checkedIn ? (
+        {today >= eventTime ? (
           <div className="checkInButton">
-            <button id="checkIn" style={buttonStyle} onClick={() => handleUserData('incrementBerries', {count: 50, calendarId})}>
+            <button
+              id="checkIn"
+              style={buttonStyleRed}
+              onClick={() =>
+                handleUserData('incrementBerries', { count: 50, calendarId })
+              }
+            >
               {' '}
-              Check in 15 minutes before
+              Check In
             </button>
           </div>
         ) : (
           <div className="checkInButton">
-            <button id="checkIn" style={buttonStyleClicked}>
+            <button id="checkIn" style={buttonStyle}>
               {' '}
-              Checked In!
+              Check in 15 minutes before
             </button>
           </div>
         )}
