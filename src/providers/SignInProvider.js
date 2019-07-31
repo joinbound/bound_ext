@@ -19,13 +19,11 @@ class SignInBase extends Component {
       return this.setState({ error: null, user: null });
     }
 
-    // Validate credentials and handlelogin
     this.props.firebase
       .signInWithCredential(credentials)
       .then(userCredential => {
-        this.handleLogin(userCredential);
+        this.handleLogin({ user: userCredential.user, credential: credentials});
       })
-
       .catch(error => {
         this.handleLogout(error);
       });
@@ -34,13 +32,14 @@ class SignInBase extends Component {
   // Handle Login Status: update credentials in localStorage and state
   handleLogin = userCredential => {
     const { credential, user } = userCredential;
-    localStorage.setItem('credentials', JSON.stringify(credential.toJSON()));
+    localStorage.setItem('credentials', JSON.stringify(credential));
     this.setState({ error: null, user });
   };
 
   // Handle Logout Status: clear credentials in localStorage and state
   handleLogout = (error = null) => {
     localStorage.removeItem('credentials');
+    this.props.firebase.auth.signOut();
     this.setState({ error, user: null });
   };
 
@@ -48,7 +47,6 @@ class SignInBase extends Component {
   signIn = event => {
     this.props.firebase
       .doSignInWithGoogle()
-
       .then(userCredential => {
         this.handleLogin(userCredential);
       })
@@ -64,6 +62,7 @@ class SignInBase extends Component {
               user: this.state.user.uid,
               email: this.state.user.email,
               rewards: [],
+              checkedInEvents: []
             },
             { merge: true }
           );

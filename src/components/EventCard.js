@@ -2,42 +2,6 @@ import React, { Component } from 'react';
 import * as moment from 'moment';
 
 class EventCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      berries: 0,
-      user: null,
-      clicked: false,
-    };
-    this.addBerries = this.addBerries.bind(this);
-  }
-  componentDidMount() {
-    const { firebase, user } = this.props;
-
-    firebase
-      .exportToDB()
-      .collection('users')
-      .doc(user.email)
-      .get()
-      .then(doc => {
-        this.setState({ user: doc.data() });
-      });
-  }
-
-  addBerries() {
-    this.setState({ clicked: true });
-    const { firebase, user } = this.props;
-    const updatedBerries =
-      this.state.user.berries + this.props.data.numberOfBerries;
-    firebase
-      .exportToDB()
-      .collection('users')
-      .doc(user.email)
-      .update({
-        berries: updatedBerries,
-      });
-  }
-
   render() {
     const buttonStyle = {
       backgroundColor: '#9b9b9b',
@@ -51,10 +15,12 @@ class EventCard extends Component {
     };
 
     const {
-      data: { eventTitle, numberOfBerries, numberOfPeople, time, isAllDay },
+      data: { eventTitle, numberOfBerries, numberOfPeople, time, isAllDay, calendarId},
+      user,
+      handleUserData,
     } = this.props;
-    let { user } = this.state;
-    if (!user) user = {};
+
+    const checkedIn = user.checkedInEvents.includes(calendarId);
 
     return (
       <div id="eventInfoAndCheckInButton">
@@ -86,9 +52,9 @@ class EventCard extends Component {
           />
           {numberOfPeople} People
         </div>
-        {this.state.clicked === false ? (
+        {!checkedIn ? (
           <div className="checkInButton">
-            <button id="checkIn" style={buttonStyle} onClick={this.addBerries}>
+            <button id="checkIn" style={buttonStyle} onClick={() => handleUserData('incrementBerries', {count: 50, calendarId})}>
               {' '}
               Check in 15 minutes before
             </button>

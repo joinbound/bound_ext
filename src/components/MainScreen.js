@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { Store, Calendar } from '.';
 
 class MainScreen extends Component {
+
   render() {
-    const { displayStore } = this.props;
+    const { displayStore, user, signOut, handleUserData, firebase } = this.props;
 
     return (
       <div>
         {displayStore ? (
-          <Store firebase={this.props.firebase} user={this.props.user} />
+          <Store user={user} handleUserData={handleUserData} firebase={firebase} />
         ) : (
           <Calendar
-            signOut={this.props.signOut}
-            user={this.props.user}
-            firebase={this.props.firebase}
+            signOut={signOut}
+            user={user}
+            handleUserData={handleUserData}
           />
         )}
       </div>

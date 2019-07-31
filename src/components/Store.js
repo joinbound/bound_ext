@@ -23,7 +23,7 @@ class Store extends Component {
   }
 
   componentDidMount() {
-    const { firebase, user } = this.props;
+    const { firebase } = this.props;
     firebase
       .exportToDB()
       .collection('marketplace')
@@ -37,15 +37,6 @@ class Store extends Component {
         });
         this.setState({ featured: this.state.store[0] });
         this.setState({ rewards: this.state.store.slice(1) });
-      });
-
-    firebase
-      .exportToDB()
-      .collection('users')
-      .doc(user.email)
-      .get()
-      .then(doc => {
-        this.setState({ user: doc.data() });
       });
   }
 

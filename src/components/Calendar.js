@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import scriptLoader from 'react-async-script-loader';
 import EventCard from './EventCard';
 import * as moment from 'moment';
+import axios from 'axios'
 
 class Calendar extends Component {
   constructor(props) {
@@ -9,78 +9,50 @@ class Calendar extends Component {
     this.state = {
       calendarData: [],
     };
+
+    this.loadEvents = this.loadEvents.bind(this);
   }
 
   loadCalendarApi() {
-    const script = document.createElement('script');
-    script.src = 'https://apis.google.com/js/client.js';
+    const { oauthAccessToken } = JSON.parse(localStorage.getItem('credentials'));
+    axios.get('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
+      params: {
+        key: 'AIzaSyBmno7cNZtCFc3oawfhiql4f1ipGrgRlqw',
+        timeMin: moment().toISOString(),
+      },
+      headers: {
+        'Authorization': `Bearer ${oauthAccessToken}`
+      }
+    }).then((result) => {
+      this.loadEvents(result.data.items);
+    })
+  }
 
-    let calendar = this;
+  loadEvents(events) {
+    const newEventsState = events.reduce(
+      (eventsState, event) => {
+        if (event.attendees && event.attendees.length >= 2) {
+          let eventDate = moment(
+            event.start.date || event.start.dateTime
+          );
+          eventsState.push({
+            calendarId: event.id,
+            eventTitle: event.summary,
+            time: eventDate,
+            isAllDay: Boolean(event.start.date),
+            numberOfPeople: event.attendees.length,
+            numberOfBerries: 50,
+          });
+          return eventsState;
+        }
+        return eventsState;
+      },
+      []
+    );
 
-    script.onload = () => {
-      window.gapi.load('client:auth2', () => {
-        window.gapi.client.setApiKey(process.env.REACT_APP_API_KEY);
-
-        window.gapi.auth.authorize(
-          {
-            client_id:
-              '121179289007-bbd4nrrm6g5sutpao31auapgp482etdo.apps.googleusercontent.com',
-            scope: 'https://www.googleapis.com/auth/calendar.events',
-            immediate: true,
-          },
-          result => {
-            window.gapi.client.load('calendar', 'v3', () => {
-              // window.gapi.client.calendar.calendarList.list()
-              //   .then(function (response) {
-              //     // Handle the results here (response.result has the parsed body).
-              //     console.log("Response", response.result);
-              //   },
-              //     function (err) { console.error("Execute error", err); })
-              window.gapi.client.calendar.events
-                .list({
-                  calendarId: 'primary',
-                  timeMin: moment().toISOString(),
-                  maxResult: 10,
-                })
-                .then(
-                  function(response) {
-                    let events = response.result.items;
-                    console.log('events', events);
-                    const newEventsState = events.reduce(
-                      (eventsState, event) => {
-                        if (event.attendees && event.attendees.length >= 2) {
-                          let eventDate = moment(
-                            event.start.date || event.start.dateTime
-                          );
-                          eventsState.push({
-                            eventTitle: event.summary,
-                            time: eventDate,
-                            isAllDay: Boolean(event.start.date),
-                            numberOfPeople: event.attendees.length,
-                            numberOfBerries: 50,
-                          });
-                          return eventsState;
-                        }
-                        return eventsState;
-                      },
-                      []
-                    );
-
-                    calendar.setState({
-                      calendarData: newEventsState,
-                    });
-                  },
-                  function(err) {
-                    console.error('Execute error', err);
-                  }
-                );
-            });
-          }
-        );
-      });
-    };
-
-    document.body.appendChild(script);
+    this.setState({
+      calendarData: newEventsState,
+    });
   }
 
   componentDidMount() {
@@ -89,6 +61,8 @@ class Calendar extends Component {
 
   render() {
     const { calendarData } = this.state;
+    const { user, handleUserData } = this.props;
+
     return (
       <div id="calBody">
         <h1 id="upcomingEvents"> Upcoming Events </h1>
@@ -96,8 +70,8 @@ class Calendar extends Component {
           <EventCard
             data={event}
             key={index}
-            user={this.props.user}
-            firebase={this.props.firebase}
+            user={user}
+            handleUserData={handleUserData}
           />
         ))}
       </div>
@@ -105,4 +79,4 @@ class Calendar extends Component {
   }
 }
 
-export default scriptLoader('https://apis.google.com/js/api.js')(Calendar);
+export default Calendar;
