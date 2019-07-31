@@ -7,12 +7,23 @@ class EventCard extends Component {
       backgroundColor: '#9b9b9b',
     };
     const buttonStyleRed = {
+      fontFamily: 'Roboto Medium, sans-serif',
       backgroundColor: '#ff5252',
-      lineHeight: '17px',
-      fontSize: '13px',
+      lineHeight: '18px',
+      fontSize: '15px',
       fontWeight: 'bold',
+      paddingTop: '9px',
     };
-
+    const buttonStyleChecked = {
+      fontFamily: 'Roboto Medium, sans-serif',
+      backgroundColor: 'white',
+      border: '2px solid #ff5252',
+      lineHeight: '18px',
+      fontSize: '14px',
+      fontWeight: 'bold',
+      paddingTop: '9px',
+      color: '#ff5252',
+    };
     const {
       data: {
         eventTitle,
@@ -24,14 +35,14 @@ class EventCard extends Component {
       },
       user,
       handleUserData,
+      checkedIn,
     } = this.props;
 
-    const checkedIn = user.checkedInEvents.includes(calendarId);
+    user.checkedInEvents.includes(calendarId);
 
     const today = new Date();
     let eventTime = new Date(time);
     eventTime.setMinutes(eventTime.getMinutes() - 15);
-
     return (
       <div id="eventInfoAndCheckInButton">
         <div id="eventDetails">
@@ -63,18 +74,27 @@ class EventCard extends Component {
           {numberOfPeople} People
         </div>
         {today >= eventTime ? (
-          <div className="checkInButton">
-            <button
-              id="checkIn"
-              style={buttonStyleRed}
-              onClick={() =>
-                handleUserData('incrementBerries', { count: 50, calendarId })
-              }
-            >
-              {' '}
-              Check In
-            </button>
-          </div>
+          checkedIn === false ? (
+            <div className="checkInButton">
+              <button
+                id="checkIn"
+                style={buttonStyleRed}
+                onClick={() =>
+                  handleUserData('incrementBerries', { count: 50, calendarId })
+                }
+              >
+                {' '}
+                Check In
+              </button>
+            </div>
+          ) : (
+            <div className="checkInButton">
+              <button id="checkIn" style={buttonStyleChecked}>
+                {' '}
+                Checked In
+              </button>
+            </div>
+          )
         ) : (
           <div className="checkInButton">
             <button id="checkIn" style={buttonStyle}>

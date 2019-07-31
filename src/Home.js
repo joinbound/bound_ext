@@ -7,6 +7,7 @@ class Home extends Component {
     this.state = {
       storeView: false,
       user: null,
+      checkedIn: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -64,6 +65,7 @@ class Home extends Component {
           berries: berries + action.count,
           checkedInEvents: checkedInEventsCopy,
         });
+        this.setState({ checkedIn: true });
         break;
       case 'purchaseItem':
         const rewardsCopy = rewards.splice(0);
@@ -79,7 +81,7 @@ class Home extends Component {
   }
 
   render() {
-    const { storeView, user } = this.state;
+    const { storeView, user, checkedIn } = this.state;
     const { signOut, firebase } = this.props;
 
     return user ? (
@@ -90,6 +92,7 @@ class Home extends Component {
           user={user}
           handleUserData={this.handleUserData}
           firebase={firebase}
+          checkedIn={checkedIn}
         />
         <h1 id="signOut" onClick={signOut}>
           Log Out
