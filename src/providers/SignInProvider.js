@@ -22,6 +22,10 @@ class SignInBase extends Component {
     this.props.firebase
       .signInWithCredential(credentials)
       .then(userCredential => {
+        // console.log(userCredential);
+        // this.props.firebase.auth.currentUser.getIdToken(true).then(function (idToken) {
+        //   console.log(idToken);
+        // });
         this.handleLogin({ user: userCredential.user, credential: credentials});
       })
       .catch(error => {
@@ -51,21 +55,30 @@ class SignInBase extends Component {
         this.handleLogin(userCredential);
       })
       .then(authUser => {
-        // Create a user in Cloud Firestore DB
-        return this.props.firebase
+        this.props.firebase
           .exportToDB()
           .collection('users')
           .doc(this.state.user.email)
-          .set(
-            {
-              berries: 50,
-              user: this.state.user.uid,
-              email: this.state.user.email,
-              rewards: [],
-              checkedInEvents: []
-            },
-            { merge: true }
-          );
+          .get()
+          .then((document) => {
+            if (!document.exists) {
+              this.props.firebase
+                .exportToDB()
+                .collection('users')
+                .doc(this.state.user.email)
+                .set(
+                  {
+                    berries: 50,
+                    user: this.state.user.uid,
+                    email: this.state.user.email,
+                    rewards: [],
+                    checkedInEvents: []
+                  },
+                  { merge: true }
+                );
+            }
+          })
+        return;
       })
       .catch(error => {
         this.setState({ error });

@@ -90,7 +90,7 @@ class MainScreen extends Component {
 
         return (
             <div className="checkInButton">
-                <button id="checkIn" style={buttonStyle} onClick={() => isWithinCheckin ? onClick : null}>
+                <button id="checkIn" style={buttonStyle} onClick={() => isWithinCheckin ? onClick() : null}>
                     {minutesLeftText()}
                 </button>
             </div>
