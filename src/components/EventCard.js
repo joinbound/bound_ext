@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
+import CheckInButton from './CheckInButton';
 import * as moment from 'moment';
 
 class EventCard extends Component {
   render() {
-    const buttonStyle = {
-      backgroundColor: '#9b9b9b',
-    };
-    const buttonStyleClicked = {
-      backgroundColor: '#ff5252',
-      lineHeight: '17px',
-      fontSize: '13px',
-      paddingTop: '5px',
-      fontWeight: 'bold',
-    };
-
     const {
       data: { eventTitle, numberOfBerries, numberOfPeople, time, isAllDay, calendarId},
-      user,
       handleUserData,
     } = this.props;
-
-    const checkedIn = user.checkedInEvents.includes(calendarId);
 
     return (
       <div id="eventInfoAndCheckInButton">
@@ -37,7 +24,7 @@ class EventCard extends Component {
             src="/images/eventTimeIcon.png"
             alt="Event Time"
           />
-          {moment(time).format(isAllDay ? 'MM/DD' : 'MM/DD/YYYY hh:mm')}
+          {moment(time).format(isAllDay ? 'MM/DD' : 'MM/DD/YYYY hh:mm a')}
           <br />
           <img
             id="eventBerryIcon"
@@ -52,21 +39,7 @@ class EventCard extends Component {
           />
           {numberOfPeople} People
         </div>
-        {!checkedIn ? (
-          <div className="checkInButton">
-            <button id="checkIn" style={buttonStyle} onClick={() => handleUserData('incrementBerries', {count: 50, calendarId})}>
-              {' '}
-              Check in 15 minutes before
-            </button>
-          </div>
-        ) : (
-          <div className="checkInButton">
-            <button id="checkIn" style={buttonStyleClicked}>
-              {' '}
-              Checked In!
-            </button>
-          </div>
-        )}
+        <CheckInButton time={time} onClick={() => handleUserData('incrementBerries', { count: 50, calendarId })}/>
       </div>
     );
   }

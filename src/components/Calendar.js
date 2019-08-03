@@ -19,6 +19,8 @@ class Calendar extends Component {
       params: {
         key: 'AIzaSyBmno7cNZtCFc3oawfhiql4f1ipGrgRlqw',
         timeMin: moment().toISOString(),
+        timeMax: moment().add("7", "days").toISOString(),
+        singleEvents: true,
       },
       headers: {
         'Authorization': `Bearer ${oauthAccessToken}`
@@ -63,10 +65,13 @@ class Calendar extends Component {
     const { calendarData } = this.state;
     const { user, handleUserData } = this.props;
 
+    const filteredCalendarData = calendarData.filter((event) => !user.checkedInEvents.includes(event.calendarId));
+
+    if (filteredCalendarData.length === 0) return <div id="calBody">No upcoming events to display.</div>
     return (
       <div id="calBody">
         <h1 id="upcomingEvents"> Upcoming Events </h1>
-        {calendarData.map((event, index) => (
+        {filteredCalendarData.map((event, index) => (
           <EventCard
             data={event}
             key={index}
