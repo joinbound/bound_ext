@@ -5,7 +5,14 @@ import * as moment from 'moment';
 class EventCard extends Component {
   render() {
     const {
-      data: { eventTitle, numberOfBerries, numberOfPeople, time, isAllDay, calendarId},
+      data: {
+        eventTitle,
+        numberOfBerries,
+        numberOfPeople,
+        time,
+        isAllDay,
+        calendarId,
+      },
       handleUserData,
     } = this.props;
 
@@ -39,7 +46,12 @@ class EventCard extends Component {
           />
           {numberOfPeople} People
         </div>
-        <CheckInButton time={time} onClick={() => handleUserData('incrementBerries', { count: 50, calendarId })}/>
+        <CheckInButton
+          time={time}
+          onClick={() =>
+            handleUserData('incrementBerries', { count: 50, calendarId })
+          }
+        />
       </div>
     );
   }

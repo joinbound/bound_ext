@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EventCard from './EventCard';
 import * as moment from 'moment';
-import axios from 'axios'
+import axios from 'axios';
 
 class Calendar extends Component {
   constructor(props) {
@@ -14,31 +14,36 @@ class Calendar extends Component {
   }
 
   loadCalendarApi() {
-    const { oauthAccessToken } = JSON.parse(localStorage.getItem('credentials'));
-    axios.get('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
-      params: {
-        key: 'AIzaSyBmno7cNZtCFc3oawfhiql4f1ipGrgRlqw',
-        timeMin: moment().toISOString(),
-        timeMax: moment().add("7", "days").toISOString(),
-        singleEvents: true,
-      },
-      headers: {
-        'Authorization': `Bearer ${oauthAccessToken}`
-      }
-    }).then((result) => {
-      this.loadEvents(result.data.items);
-    }).catch(() => {
-      this.props.signOut();
-    })
+    const { oauthAccessToken } = JSON.parse(
+      localStorage.getItem('credentials')
+    );
+    axios
+      .get('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
+        params: {
+          key: 'AIzaSyBmno7cNZtCFc3oawfhiql4f1ipGrgRlqw',
+          timeMin: moment().toISOString(),
+          timeMax: moment()
+            .add('7', 'days')
+            .toISOString(),
+          singleEvents: true,
+        },
+        headers: {
+          Authorization: `Bearer ${oauthAccessToken}`,
+        },
+      })
+      .then(result => {
+        this.loadEvents(result.data.items);
+      })
+      .catch(() => {
+        this.props.signOut();
+      });
   }
 
   loadEvents(events) {
-    const newEventsState = events.reduce(
-      (eventsState, event) => {
+    const newEventsState = events
+      .reduce((eventsState, event) => {
         if (event.attendees && event.attendees.length >= 2) {
-          let eventDate = moment(
-            event.start.date || event.start.dateTime
-          );
+          let eventDate = moment(event.start.date || event.start.dateTime);
           eventsState.push({
             calendarId: event.id,
             eventTitle: event.summary,
@@ -50,9 +55,8 @@ class Calendar extends Component {
           return eventsState;
         }
         return eventsState;
-      },
-      []
-    );
+      }, [])
+      .sort((a, b) => (a.time > b.time ? 1 : -1));
 
     this.setState({
       calendarData: newEventsState,
@@ -67,9 +71,11 @@ class Calendar extends Component {
     const { calendarData } = this.state;
     const { user, handleUserData } = this.props;
 
-    const filteredCalendarData = calendarData.filter((event) => !user.checkedInEvents.includes(event.calendarId));
-
-    if (filteredCalendarData.length === 0) return <div id="calBody">No upcoming events to display.</div>
+    const filteredCalendarData = calendarData.filter(
+      event => !user.checkedInEvents.includes(event.calendarId)
+    );
+    if (filteredCalendarData.length === 0)
+      return <div id="calBody">No upcoming events to display</div>;
     return (
       <div id="calBody">
         <h1 id="upcomingEvents"> Upcoming Events </h1>
