@@ -35,6 +35,7 @@ class Store extends Component {
             a.berries < b.berries ? 1 : b.berries < a.berries ? -1 : 0
           ),
         });
+        this.setState({ user: this.props.user });
         this.setState({ featured: this.state.store[0] });
         this.setState({ rewards: this.state.store.slice(1) });
       });
@@ -44,6 +45,7 @@ class Store extends Component {
     let { featured, rewards, user, selected } = this.state;
     if (!featured) featured = {};
     if (!user) user = {};
+
     return (
       <>
         <Modal
