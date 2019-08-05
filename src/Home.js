@@ -87,6 +87,7 @@ class Home extends Component {
           user={user}
           handleUserData={this.handleUserData}
           firebase={firebase}
+          signOut={signOut}
         />
         <h1 id="signOut" onClick={signOut}>
           Log Out

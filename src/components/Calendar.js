@@ -27,6 +27,8 @@ class Calendar extends Component {
       }
     }).then((result) => {
       this.loadEvents(result.data.items);
+    }).catch(() => {
+      this.props.signOut();
     })
   }
 
