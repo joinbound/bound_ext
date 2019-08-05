@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-class MainScreen extends Component {
+class CheckInButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -112,4 +112,4 @@ class MainScreen extends Component {
   }
 }
 
-export default MainScreen;
+export default CheckInButton;
