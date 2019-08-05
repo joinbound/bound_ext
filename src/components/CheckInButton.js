@@ -86,7 +86,6 @@ class MainScreen extends Component {
     const { minutesLeft } = this.state;
 
     const isWithinCheckin = minutesLeft < 15 && minutesLeft >= 0;
-
     const buttonStyle = {
       backgroundColor: isWithinCheckin ? '#ff5252' : '#9b9b9b',
       textAlign: 'center',
