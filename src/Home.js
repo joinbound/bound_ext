@@ -29,7 +29,7 @@ class Home extends Component {
       .doc(user.email)
       .get()
       .then(doc => {
-        this.setState({ user: doc.data()});
+        this.setState({ user: doc.data() });
       });
   }
 
@@ -42,33 +42,36 @@ class Home extends Component {
       .doc(this.state.user.email)
       .update(updateContent)
       .then(doc => {
-        this.setState({ user: {
-          ...user,
-          ...updateContent
-        }})
-      });;
+        this.setState({
+          user: {
+            ...user,
+            ...updateContent,
+          },
+        });
+      });
   }
 
   handleUserData(type, action) {
-    const {user: {berries, checkedInEvents, rewards}} = this.state;
+    const {
+      user: { berries, checkedInEvents, rewards },
+    } = this.state;
 
-
-    switch(type) {
+    switch (type) {
       case 'incrementBerries':
         const checkedInEventsCopy = checkedInEvents.splice(0);
-        checkedInEventsCopy.push(action.calendarId)
+        checkedInEventsCopy.push(action.calendarId);
         this.updateFirebase({
           berries: berries + action.count,
           checkedInEvents: checkedInEventsCopy,
-        })
+        });
         break;
       case 'purchaseItem':
         const rewardsCopy = rewards.splice(0);
-        rewardsCopy.push(action.rewardId)
+        rewardsCopy.push(action.reward);
         this.updateFirebase({
           berries: berries - action.count,
           rewards: rewardsCopy,
-        })
+        });
         break;
       default:
         return;
