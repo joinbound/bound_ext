@@ -3,12 +3,11 @@
   "name": "Bound",
   "version": "1.0.1",
   "description": "Bound Chrome Extension",
+  "icons": { "16": "favicon.ico", "48": "favicon.ico", "128": "favicon.ico" },
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnadmXmq5KjC/3pg1k+ZoynZPDDgbzNu47rq5BrY26dg4sMjduOD5LiyxI9dcBYnN+nrTMcyNl2b6Bz/JuG8O4n2Kff3pOpqI2gZRY4pzP9zFl+n6XW3YcZ9HU2CHiDnumKtvaUQqA44ijlbPNlaLBXAYePcC6zoDHRToMSMt1FxlpqUZA6Wijq8bVocKZTB/yonks6pFU9Mg89tBsQLJ3osdHXh2L2JBEHejUkPwxfnREUWAWU+VE938gzXkZ9gsdlmn+ifahw0wGgH9uh+lvfYyc/ytj9BAsn22jCLIBkbyHWfKWOkbsV0ycy6GsTOD/DdY2HdgL2PdzOKYeIErAwIDAQAB",
   "oauth2": {
     "client_id": "121179289007-bbd4nrrm6g5sutpao31auapgp482etdo.apps.googleusercontent.com",
-    "scopes": [
-      "https://www.googleapis.com/auth/calendar.readonly"
-    ]
+    "scopes": ["https://www.googleapis.com/auth/calendar.readonly"]
   },
 
   "browser_action": {
