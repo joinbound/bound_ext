@@ -65,6 +65,7 @@ class Store extends Component {
                   user={user}
                   selected={selected}
                   firebase={this.props.firebase}
+                  handleUserData={this.props.handleUserData}
                 />
               </ModalBody>
             </>
@@ -109,10 +110,11 @@ class Store extends Component {
               </div>
             </div>
             <div id="rewards">
-              {rewards.map(reward => (
+              {rewards.map((reward, i) => (
                 <div
                   id="rewardCard"
                   onClick={() => this.setState({ selected: reward })}
+                  key={i}
                 >
                   <img src={reward.image} onClick={this.toggleForm} alt="" />
                   <div id="rewardsInfo">
