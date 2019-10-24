@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Header, NavigationBar, MainScreen } from './components';
+import React, { Component } from "react";
+import { Header, NavigationBar, MainScreen } from "./components";
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
       storeView: false,
-      user: null,
+      user: null
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -16,7 +16,7 @@ class Home extends Component {
 
   handleClick = event => {
     this.setState({
-      storeView: Boolean(event.target.className === 'store'),
+      storeView: Boolean(event.target.className === "store")
     });
   };
 
@@ -25,7 +25,7 @@ class Home extends Component {
 
     firebase
       .exportToDB()
-      .collection('users')
+      .collection("users")
       .doc(user.email)
       .get()
       .then(doc => {
@@ -38,39 +38,39 @@ class Home extends Component {
     const { user } = this.state;
     firebase
       .exportToDB()
-      .collection('users')
+      .collection("users")
       .doc(this.state.user.email)
       .update(updateContent)
       .then(doc => {
         this.setState({
           user: {
             ...user,
-            ...updateContent,
-          },
+            ...updateContent
+          }
         });
       });
   }
 
   handleUserData(type, action) {
     const {
-      user: { berries, checkedInEvents, rewards },
+      user: { berries, checkedInEvents, rewards }
     } = this.state;
 
     switch (type) {
-      case 'incrementBerries':
+      case "incrementBerries":
         const checkedInEventsCopy = checkedInEvents.splice(0);
         checkedInEventsCopy.push(action.calendarId);
         this.updateFirebase({
           berries: berries + action.count,
-          checkedInEvents: checkedInEventsCopy,
+          checkedInEvents: checkedInEventsCopy
         });
         break;
-      case 'purchaseItem':
+      case "purchaseItem":
         const rewardsCopy = rewards.splice(0);
         rewardsCopy.push(action.reward);
         this.updateFirebase({
           berries: berries - action.count,
-          rewards: rewardsCopy,
+          rewards: rewardsCopy
         });
         break;
       default:

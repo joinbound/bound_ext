@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Header extends Component {
   render() {
-    const { user: { berries } } = this.props;
+    const {
+      user: { berries }
+    } = this.props;
     return (
       <div id="header">
         <img id="headerLogo" src="/images/navIcon.png" alt="" />

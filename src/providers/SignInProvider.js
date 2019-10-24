@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { compose } from 'recompose';
-import { withFirebase } from './firebase';
-import Home from '../Home';
+import React, { Component } from "react";
+import { compose } from "recompose";
+import { withFirebase } from "./firebase";
+import Home from "../Home";
 
 class SignInBase extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class SignInBase extends Component {
   // Init, retrieve for credentials from localStorage, if it's there update credentials
   componentDidMount() {
     // Retrieve and parse credentials from localStorage
-    const credentials = JSON.parse(localStorage.getItem('credentials'));
+    const credentials = JSON.parse(localStorage.getItem("credentials"));
 
     // If does not exist, set logged out state
     if (!credentials) {
@@ -26,7 +26,10 @@ class SignInBase extends Component {
         // this.props.firebase.auth.currentUser.getIdToken(true).then(function (idToken) {
         //   console.log(idToken);
         // });
-        this.handleLogin({ user: userCredential.user, credential: credentials});
+        this.handleLogin({
+          user: userCredential.user,
+          credential: credentials
+        });
       })
       .catch(error => {
         this.handleLogout(error);
@@ -36,13 +39,14 @@ class SignInBase extends Component {
   // Handle Login Status: update credentials in localStorage and state
   handleLogin = userCredential => {
     const { credential, user } = userCredential;
-    localStorage.setItem('credentials', JSON.stringify(credential));
+    localStorage.setItem("credentials", JSON.stringify(credential));
+
     this.setState({ error: null, user });
   };
 
   // Handle Logout Status: clear credentials in localStorage and state
   handleLogout = (error = null) => {
-    localStorage.removeItem('credentials');
+    localStorage.removeItem("credentials");
     this.props.firebase.auth.signOut();
     this.setState({ error, user: null });
   };
@@ -57,14 +61,14 @@ class SignInBase extends Component {
       .then(authUser => {
         this.props.firebase
           .exportToDB()
-          .collection('users')
+          .collection("users")
           .doc(this.state.user.email)
           .get()
-          .then((document) => {
+          .then(document => {
             if (!document.exists) {
               this.props.firebase
                 .exportToDB()
-                .collection('users')
+                .collection("users")
                 .doc(this.state.user.email)
                 .set(
                   {
@@ -77,7 +81,7 @@ class SignInBase extends Component {
                   { merge: true }
                 );
             }
-          })
+          });
         return;
       })
       .catch(error => {

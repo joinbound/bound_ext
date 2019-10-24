@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import moment from 'moment';
+import React, { Component } from "react";
+import moment from "moment";
 
 class CheckInButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
       minutesLeft: 15,
-      timer: null,
+      timer: null
     };
 
     this.runTimer = this.runTimer.bind(this);
@@ -15,15 +15,15 @@ class CheckInButton extends Component {
 
   componentDidMount() {
     const { time: eventTime } = this.props;
-
+    console.log(eventTime);
     const now = moment();
     const event = moment(eventTime);
-    const checkInPeriod = moment.duration('00:15:00');
+    const checkInPeriod = moment.duration("00:15:00");
     const checkInStart = moment(eventTime).subtract(checkInPeriod);
 
     if (now.isAfter(event)) {
       this.setState({
-        minutesLeft: -1,
+        minutesLeft: -1
       });
     } else {
       if (now.isSameOrBefore(checkInStart)) {
@@ -36,8 +36,8 @@ class CheckInButton extends Component {
       } else if (now.isBetween(checkInStart, event)) {
         this.setState({
           minutesLeft:
-            moment.duration(event.diff(now, 'minutes'), 'minutes').valueOf() /
-            60000,
+            moment.duration(event.diff(now, "minutes"), "minutes").valueOf() /
+            60000
         });
         this.runTimer();
       }
@@ -57,7 +57,7 @@ class CheckInButton extends Component {
           this.updatesMinutesLeft();
         }.bind(this),
         60000
-      ),
+      )
     });
   }
 
@@ -65,7 +65,7 @@ class CheckInButton extends Component {
     const { timer } = this.state;
     this.setState({
       timer: clearInterval(timer),
-      minutesLeft: -1,
+      minutesLeft: -1
     });
   }
 
@@ -73,11 +73,11 @@ class CheckInButton extends Component {
     const { minutesLeft, timer } = this.state;
     if (minutesLeft < 0) {
       this.setState({
-        timer: clearInterval(timer),
+        timer: clearInterval(timer)
       });
     }
     this.setState({
-      minutesLeft: minutesLeft - 1,
+      minutesLeft: minutesLeft - 1
     });
   }
 
@@ -87,15 +87,15 @@ class CheckInButton extends Component {
 
     const isWithinCheckin = minutesLeft < 15 && minutesLeft >= 0;
     const buttonStyle = {
-      backgroundColor: isWithinCheckin ? '#ff5252' : '#9b9b9b',
-      textAlign: 'center',
+      backgroundColor: isWithinCheckin ? "#ff5252" : "#9b9b9b",
+      textAlign: "center"
     };
 
     const minutesLeftText = () => {
-      if (minutesLeft >= 15) return 'Check in 15 minutes before';
+      if (minutesLeft >= 15) return "Check in 15 minutes before";
       else if (minutesLeft >= 0)
         return `You have ${minutesLeft} minutes to check in`;
-      return 'You have missed the deadline to check in';
+      return "You have missed the deadline to check in";
     };
 
     return (
@@ -103,6 +103,7 @@ class CheckInButton extends Component {
         <button
           id="checkIn"
           style={buttonStyle}
+          disabled={!isWithinCheckin}
           onClick={() => (isWithinCheckin ? onClick() : null)}
         >
           {minutesLeftText()}
