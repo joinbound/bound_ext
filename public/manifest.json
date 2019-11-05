@@ -16,5 +16,5 @@
 
   "permissions": ["identity"],
 
-  "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com https://apis.google.com; object-src 'self'; connect-src 'self' wss://*.firebaseio.com https://www.googleapis.com https://apis.google.com https://firestore.googleapis.com; "
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'; script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com https://apis.google.com; object-src 'self'; connect-src 'self' wss://*.firebaseio.com https://www.googleapis.com https://apis.google.com https://firestore.googleapis.com; "
 }
