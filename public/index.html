@@ -5,24 +5,20 @@
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel=”shortcut icon” href=”%PUBLIC_URL%/favicon.ico”>
-
   </head>
 
   <body>
     <div id="root">
     </div>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7N8L5YPQB3"></script>
     <script>
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-142575383-2']);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = 'https://ssl.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-      _gaq.push(['_trackPageview']);
+      gtag('config', 'G-7N8L5YPQB3');
     </script>
   </body>
 </html>
