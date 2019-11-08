@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import ReactGA from "react-ga";
 import { Header, NavigationBar, MainScreen } from "./components";
+
+ReactGA.initialize('UA-142575383-2', { debug: false });
 
 class Home extends Component {
   constructor() {

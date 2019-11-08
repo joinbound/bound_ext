@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from "react-ga";
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { ShippingForm } from '.';
 
@@ -23,6 +24,8 @@ class Store extends Component {
   }
 
   componentDidMount() {
+    ReactGA.pageview('/rewards');
+
     const { firebase } = this.props;
     firebase
       .exportToDB()
@@ -41,6 +44,19 @@ class Store extends Component {
       });
   }
 
+  selectReward(reward) {
+    ReactGA.event({
+      category: 'Rewards',
+      action: 'Reward clicked',
+      label: reward.name,
+      value: reward.berries
+    });
+
+    this.setState({
+      selected: reward
+    });
+  }
+
   render() {
     let { featured, rewards, user, selected } = this.state;
     if (!featured) featured = {};
@@ -57,7 +73,7 @@ class Store extends Component {
           {user.berries >= selected.berries ? (
             <>
               <ModalHeader toggle={this.toggleForm} className="modalHeader">
-                <div class="text-align: justify">Purchase Confirmation </div>
+                <div style={{textAlign: 'justify'}}>Purchase Confirmation </div>
               </ModalHeader>
               <ModalBody>
                 <ShippingForm
@@ -72,10 +88,10 @@ class Store extends Component {
           ) : (
             <>
               <ModalHeader toggle={this.toggleForm} className="modalHeader">
-                <div class="text-align: justify">Insufficent berries</div>
+                <div style={{textAlign: 'justify'}}>Insufficent berries</div>
               </ModalHeader>
               <ModalBody toggle={this.toggleForm}>
-                <h2 id="ques" class="col text-center">
+                <h2 id="ques" className="col text-center">
                   Sorry! You don't have enough berries to purchase this item
                   yet!
                 </h2>
@@ -88,7 +104,7 @@ class Store extends Component {
           <div id="storeBody">
             <div
               id="featured"
-              onClick={() => this.setState({ selected: featured })}
+              onClick={() => this.selectReward(featured)}
             >
               <img
                 id="featuredImg"
@@ -105,7 +121,7 @@ class Store extends Component {
                     src="/images/redBerryIcon.png"
                     alt=""
                   />
-                  <h1 className="berryNumFeat">{featured.berries}</h1>
+                  <span className="berryNumFeat">{featured.berries}</span>
                 </h1>
               </div>
             </div>
@@ -113,7 +129,7 @@ class Store extends Component {
               {rewards.map((reward, i) => (
                 <div
                   id="rewardCard"
-                  onClick={() => this.setState({ selected: reward })}
+                  onClick={() => this.selectReward(reward)}
                   key={i}
                 >
                   <img src={reward.image} onClick={this.toggleForm} alt="" />
@@ -127,7 +143,7 @@ class Store extends Component {
                           src="/images/redBerryIcon.png"
                           alt=""
                         />
-                        <h1 className="berryNum">{reward.berries}</h1>
+                        <span className="berryNum">{reward.berries}</span>
                       </h1>
                     </div>
                   </div>
