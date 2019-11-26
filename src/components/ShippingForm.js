@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from "react-ga";
 import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
 
 class ShippingForm extends Component {
@@ -10,6 +11,10 @@ class ShippingForm extends Component {
     };
     this.toggleNested = this.toggleNested.bind(this);
     this.toggleAll = this.toggleAll.bind(this);
+  }
+
+  componentDidMount() {
+    ReactGA.pageview('/redeem-reward');
   }
 
   toggleNested() {
@@ -32,12 +37,23 @@ class ShippingForm extends Component {
   }
 
   render() {
+    const redeemReward = () => {
+      ReactGA.event({
+        category: 'Rewards',
+        action: 'Reward redeemed',
+        label: this.props.selected.name,
+        value: this.props.selected.berries
+      });
+
+      this.toggleNested();
+    };
+
     return (
       <div>
         <h2 id="ques" class="col text-center">
           Are you sure you want to purchase this item?
         </h2>
-        <Button outline color="danger" onClick={this.toggleNested}>
+        <Button outline color="danger" onClick={redeemReward}>
           Yes
         </Button>{' '}
         <div class="divider" />

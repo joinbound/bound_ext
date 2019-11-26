@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactGA from "react-ga";
 import moment from "moment";
 
 class CheckInButton extends Component {
@@ -98,13 +99,24 @@ class CheckInButton extends Component {
       return "You have missed the deadline to check in";
     };
 
+    const checkInWithTracking = () => {
+      ReactGA.event({
+        category: 'Upcoming Events',
+        action: 'Checked In',
+        label: 'Minutes Left',
+        value: parseInt(minutesLeft)
+      });
+
+      onClick();
+    };
+
     return (
       <div className="checkInButton">
         <button
           id="checkIn"
           style={buttonStyle}
           disabled={!isWithinCheckin}
-          onClick={() => (isWithinCheckin ? onClick() : null)}
+          onClick={() => (isWithinCheckin ? checkInWithTracking() : null)}
         >
           {minutesLeftText()}
         </button>

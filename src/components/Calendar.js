@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 import EventCard from './EventCard';
 import * as moment from 'moment';
 import axios from 'axios';
@@ -65,6 +66,8 @@ class Calendar extends Component {
 
   componentDidMount() {
     this.loadCalendarApi();
+
+    ReactGA.pageview('/upcoming-events');
   }
 
   render() {
