@@ -1,4 +1,5 @@
-//entry point
+/*global chrome*/
+/* src/content.js */
 
 import React from "react";
 import ReactDOM from "react-dom";
